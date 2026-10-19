@@ -6,6 +6,30 @@
     <title>IT-Wiki</title>
   </head>
   <body>
+    <header>
+      <h1>IT-Wiki</h1>
+      <p>Ein kleines Nachschlagewerk zu Programmiersprachen, Linux, Git und Netzwerk.</p>
+      <nav aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#suche">Suche</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="suche" aria-labelledby="suche-titel">
+        <h2 id="suche-titel">Wiki durchsuchen</h2>
+        <form role="search" id="suchformular">
+          <label for="suchfeld">Suchbegriff</label>
+          <input type="search" id="suchfeld" name="suche" autocomplete="off" />
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>Einsendeaufgabe 1 · Front-End Development (SED502) · Lorenz Siedler</p>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
