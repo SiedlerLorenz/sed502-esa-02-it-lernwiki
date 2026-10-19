@@ -1,1 +1,121 @@
-/* Styles des IT-Wikis */
+/* Farben als Variablen, damit sie an einer Stelle geändert werden können */
+:root {
+  --farbe-hintergrund: #f5f7fa;
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #1a2433;
+  --farbe-text-gedaempft: #4a5568;
+  --farbe-primaer: #1e3a5f;
+  --farbe-link: #0b5cad;
+  --farbe-rand: #cbd5e1;
+  --radius: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--farbe-text);
+  background: var(--farbe-hintergrund);
+}
+
+a {
+  color: var(--farbe-link);
+}
+
+/* Kopf- und Fußbereich */
+header,
+footer {
+  padding: 1.5rem 1rem;
+  color: #ffffff;
+  background: var(--farbe-primaer);
+}
+
+header h1 {
+  margin: 0 0 0.25rem;
+}
+
+header p,
+footer p {
+  margin: 0 0 1rem;
+}
+
+header a,
+footer a {
+  color: #ffffff;
+}
+
+/* Flexbox-Layout für die Navigation */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Hauptbereich: eine Spalte, begrenzte Breite, Abstand zwischen den Bereichen */
+main {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* Bereiche als Karten */
+main > section,
+main > aside {
+  padding: 1rem 1.25rem;
+  background: var(--farbe-flaeche);
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+main h2 {
+  margin-top: 0;
+  color: var(--farbe-primaer);
+}
+
+/* Suchformular */
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input[type='search'] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--farbe-text);
+  background: #ffffff;
+  border: 2px solid var(--farbe-text-gedaempft);
+  border-radius: var(--radius);
+}
+
+/* Codebeispiel */
+figure {
+  margin: 0;
+}
+
+pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: #e6edf5;
+  background: #0f1b2d;
+  border-radius: var(--radius);
+}
+
+figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
