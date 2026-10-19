@@ -7,6 +7,8 @@ Datum: 19.10.2026
 
 ## Was die Webseite zeigt
 
+![IT-Wiki: Startseite mit Suche, Artikelliste und Kategorien](screenshot.png)
+
 - **Suche:** Das Suchfeld filtert die Artikel beim Tippen nach Titel, Kategorie und Stichwörtern. Mehrere Suchwörter müssen alle passen. Groß-/Kleinschreibung und Akzente werden ignoriert.
 - **Artikel:** Jeder Eintrag zeigt Titel, Kategorie, Zusammenfassung, ein Code-Snippet (zum Beispiel "Hello, World!") und Stichwörter. Eine Statusmeldung nennt die Trefferanzahl.
 - **Kategorien:** Eine Seitenleiste zählt die Artikel pro Kategorie.
