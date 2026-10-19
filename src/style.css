@@ -7,6 +7,7 @@
   --farbe-primaer: #1e3a5f;
   --farbe-link: #0b5cad;
   --farbe-rand: #cbd5e1;
+  --farbe-fokus: #b45309;
   --radius: 0.5rem;
 }
 
@@ -26,6 +27,29 @@ body {
 
 a {
   color: var(--farbe-link);
+}
+
+/* Gut sichtbarer Fokus für die Bedienung per Tastatur */
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--farbe-fokus);
+  outline-offset: 2px;
+}
+
+/* Skip-Link: nur sichtbar, wenn er per Tastatur fokussiert wird */
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  color: var(--farbe-text);
+  background: var(--farbe-flaeche);
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: 0.5rem;
 }
 
 /* Kopf- und Fußbereich */
@@ -83,6 +107,40 @@ main h2 {
   color: var(--farbe-primaer);
 }
 
+/* Ab breiten Bildschirmen: Artikel und Kategorien nebeneinander */
+@media (min-width: 48rem) {
+  main {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  #suche,
+  #beispiel {
+    grid-column: 1 / -1;
+  }
+
+  #suche {
+    grid-row: 1;
+  }
+
+  #artikel,
+  #kategorien {
+    grid-row: 2;
+  }
+
+  #artikel {
+    grid-column: 1;
+  }
+
+  #kategorien {
+    grid-column: 2;
+    align-self: start;
+  }
+
+  #beispiel {
+    grid-row: 3;
+  }
+}
+
 /* Suchformular */
 label {
   display: block;
@@ -98,6 +156,47 @@ input[type='search'] {
   background: #ffffff;
   border: 2px solid var(--farbe-text-gedaempft);
   border-radius: var(--radius);
+}
+
+/* Artikelliste: jeder Eintrag als eigene Karte */
+#trefferliste {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#trefferliste article {
+  padding: 1rem;
+  background: var(--farbe-hintergrund);
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+#trefferliste h3 {
+  margin: 0 0 0.25rem;
+  color: var(--farbe-primaer);
+}
+
+.artikel-kategorie,
+.artikel-stichwoerter {
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
+
+.artikel-kategorie {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.artikel-stichwoerter {
+  margin: 0.5rem 0 0;
+}
+
+#kategorienliste {
+  margin: 0;
+  padding-left: 1.25rem;
 }
 
 /* Codebeispiel */
