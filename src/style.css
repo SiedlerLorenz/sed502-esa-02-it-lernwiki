@@ -87,6 +87,7 @@ nav ul {
 /* Hauptbereich: eine Spalte, begrenzte Breite, Abstand zwischen den Bereichen */
 main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr); /* minmax(0, …): Spalte darf schmaler als der Inhalt werden */
   gap: 1.5rem;
   max-width: 60rem;
   margin: 0 auto;
@@ -110,7 +111,7 @@ main h2 {
 /* Ab breiten Bildschirmen: Artikel und Kategorien nebeneinander */
 @media (min-width: 48rem) {
   main {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
   #suche,
@@ -161,6 +162,7 @@ input[type='search'] {
 /* Artikelliste: jeder Eintrag als eigene Karte */
 #trefferliste {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   margin: 0;
   padding: 0;
