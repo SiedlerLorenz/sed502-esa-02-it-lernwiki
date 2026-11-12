@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 
@@ -9,8 +10,11 @@ if (wurzel === null) {
   throw new Error('Element "#root" wurde in index.html nicht gefunden.');
 }
 
+// BrowserRouter stellt die URL-basierte Navigation für alle Komponenten bereit
 createRoot(wurzel).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 );
