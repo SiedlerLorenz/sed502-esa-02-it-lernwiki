@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 *.docx
+
+# Umgebungsvariablen mit API-Schlüsseln (niemals ins Repository!)
+.env
+.env.local
+.env.*.local

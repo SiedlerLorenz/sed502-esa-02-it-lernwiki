@@ -2,72 +2,17 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Ein kleines IT-Wiki zu Programmiersprachen, Linux, Git und Netzwerk mit Live-Suche."
+      content="IT-Lernwiki: Nachschlagewerk zu Programmiersprachen, Linux, Git und Netzwerk mit Wikipedia-Recherche und KI-Tutor."
     />
-    <title>IT-Wiki</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>IT-Lernwiki</title>
   </head>
   <body>
-    <a class="skip-link" href="#inhalt">Zum Hauptinhalt springen</a>
-
-    <header>
-      <h1>IT-Wiki</h1>
-      <p>Ein kleines Nachschlagewerk zu Programmiersprachen, Linux, Git und Netzwerk.</p>
-      <nav aria-label="Hauptnavigation">
-        <ul>
-          <li><a href="#suche">Suche</a></li>
-          <li><a href="#artikel">Artikel</a></li>
-          <li><a href="#kategorien">Kategorien</a></li>
-          <li><a href="#beispiel">Beispiel</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main id="inhalt">
-      <section id="suche" aria-labelledby="suche-titel">
-        <h2 id="suche-titel">Wiki durchsuchen</h2>
-        <form role="search" id="suchformular">
-          <label for="suchfeld">Suchbegriff</label>
-          <input type="search" id="suchfeld" name="suche" autocomplete="off" />
-        </form>
-      </section>
-
-      <section id="artikel" aria-labelledby="artikel-titel">
-        <h2 id="artikel-titel">Artikel</h2>
-        <p id="trefferanzahl" role="status" aria-live="polite"></p>
-        <ul id="trefferliste"></ul>
-        <noscript>
-          <p>Für die Artikelliste und die Suche wird JavaScript benötigt.</p>
-        </noscript>
-      </section>
-
-      <aside id="kategorien" aria-labelledby="kategorien-titel">
-        <h2 id="kategorien-titel">Kategorien</h2>
-        <p>Anzahl der Artikel pro Kategorie:</p>
-        <ul id="kategorienliste"></ul>
-      </aside>
-
-      <section id="beispiel" aria-labelledby="beispiel-titel">
-        <h2 id="beispiel-titel">Beispiel aus dem Alltag</h2>
-        <figure>
-          <pre><code>git switch -c feature/suche
-git add .
-git commit -m "Add: Live-Suche"</code></pre>
-          <figcaption>
-            Abbildung 1: Ein neuer Branch wird angelegt, Änderungen werden
-            vorgemerkt und als Commit gespeichert.
-          </figcaption>
-        </figure>
-      </section>
-    </main>
-
-    <footer>
-      <p>Einsendeaufgabe 1 · Front-End Development (SED502) · Lorenz Siedler</p>
-    </footer>
-
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root"></div>
+    <noscript>Für das IT-Lernwiki wird JavaScript benötigt.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
