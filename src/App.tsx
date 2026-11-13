@@ -1,5 +1,6 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Navigation from './komponenten/Navigation.tsx';
+import NichtGefunden from './seiten/NichtGefunden.tsx';
 import Startseite from './seiten/Startseite.tsx';
 
 // Wurzelkomponente: gemeinsames Seitenlayout und Zuordnung von URL zu Seite
@@ -20,8 +21,8 @@ function App(): React.JSX.Element {
       <main id="inhalt">
         <Routes>
           <Route path="/" element={<Startseite />} />
-          {/* Unbekannte URLs vorerst auf die Startseite umleiten */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Alle übrigen URLs: eigene 404-Seite */}
+          <Route path="*" element={<NichtGefunden />} />
         </Routes>
       </main>
 
