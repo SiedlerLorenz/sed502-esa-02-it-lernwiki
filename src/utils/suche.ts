@@ -1,4 +1,4 @@
-import type { Artikel, Kategorie } from './daten.ts';
+import type { Artikel, Kategorie } from '../typen/artikel.ts';
 
 // Macht Texte vergleichbar: Kleinschreibung, ohne Umlaut-Akzente, ohne Leerraum am Rand
 // ("Einrückung" wird dadurch auch bei der Eingabe "einruckung" gefunden)
