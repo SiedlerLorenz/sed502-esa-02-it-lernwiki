@@ -129,3 +129,96 @@ main h2 {
   border: 1px solid var(--farbe-rand);
   border-radius: var(--radius);
 }
+
+/* ---------- Startseite ---------- */
+
+/* Eine Spalte auf schmalen Bildschirmen */
+.startseite {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* minmax(0, …): Spalte darf schmaler als der Inhalt werden */
+  gap: 1.5rem;
+}
+
+/* Ab breiten Bildschirmen: Artikel und Kategorien nebeneinander */
+@media (min-width: 48rem) {
+  .startseite {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .bereich-suche {
+    grid-column: 1 / -1;
+  }
+
+  .bereich-kategorien {
+    align-self: start;
+  }
+}
+
+/* Suchformular */
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input[type='search'] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--farbe-text);
+  background: #ffffff;
+  border: 2px solid var(--farbe-text-gedaempft);
+  border-radius: var(--radius);
+}
+
+/* Artikelliste: jeder Eintrag als eigene Karte */
+.trefferliste {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.artikel-karte {
+  padding: 1rem;
+  background: var(--farbe-hintergrund);
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+.artikel-karte h3 {
+  margin: 0 0 0.25rem;
+  color: var(--farbe-primaer);
+}
+
+.artikel-kategorie,
+.artikel-stichwoerter {
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
+
+.artikel-kategorie {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.artikel-stichwoerter {
+  margin: 0.5rem 0 0;
+}
+
+.kategorien-liste {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* Codebeispiele */
+pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: #e6edf5;
+  background: #0f1b2d;
+  border-radius: var(--radius);
+}
