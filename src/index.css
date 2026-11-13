@@ -1,1 +1,131 @@
-/* Globale Stile des IT-Lernwikis */
+/* Globale Stile des IT-Lernwikis (Farben und Grundlayout aus ESA 1 übernommen) */
+
+/* Farben als Variablen, damit sie an einer Stelle geändert werden können */
+:root {
+  --farbe-hintergrund: #f5f7fa;
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #1a2433;
+  --farbe-text-gedaempft: #4a5568;
+  --farbe-primaer: #1e3a5f;
+  --farbe-link: #0b5cad;
+  --farbe-rand: #cbd5e1;
+  --farbe-fokus: #b45309;
+  --radius: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--farbe-text);
+  background: var(--farbe-hintergrund);
+}
+
+/* Footer bleibt auch bei wenig Inhalt unten */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--farbe-link);
+}
+
+/* Gut sichtbarer Fokus für die Bedienung per Tastatur */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--farbe-fokus);
+  outline-offset: 2px;
+}
+
+/* Skip-Link: nur sichtbar, wenn er per Tastatur fokussiert wird */
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  color: var(--farbe-text);
+  background: var(--farbe-flaeche);
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* Kopf- und Fußbereich */
+.kopfbereich,
+.fussbereich {
+  padding: 1rem;
+  color: #ffffff;
+  background: var(--farbe-primaer);
+}
+
+.kopfbereich a,
+.fussbereich a {
+  color: #ffffff;
+}
+
+.seitenname {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.seitenname a {
+  text-decoration: none;
+}
+
+.fussbereich p {
+  margin: 0;
+}
+
+/* Flexbox-Layout für die Navigation */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Aktive Seite in der Navigation hervorheben (Klasse von NavLink) */
+nav a.aktiv {
+  font-weight: 700;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.3em;
+}
+
+/* Hauptbereich: begrenzte Breite, wächst, damit der Footer unten bleibt */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+main h1,
+main h2 {
+  margin-top: 0;
+  color: var(--farbe-primaer);
+}
+
+/* Bereiche als Karten */
+.karte {
+  padding: 1rem 1.25rem;
+  background: var(--farbe-flaeche);
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
