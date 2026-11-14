@@ -222,3 +222,67 @@ pre {
   background: #0f1b2d;
   border-radius: var(--radius);
 }
+
+/* ---------- Lade- und Fehlerzustand ---------- */
+
+.ladeanimation {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--farbe-text-gedaempft);
+}
+
+.ladeanimation-kreis {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--farbe-rand);
+  border-top-color: var(--farbe-primaer);
+  border-radius: 50%;
+  animation: drehen 0.8s linear infinite;
+}
+
+@keyframes drehen {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Wer im Betriebssystem "Bewegung reduzieren" eingestellt hat, sieht keinen drehenden Kreis */
+@media (prefers-reduced-motion: reduce) {
+  .ladeanimation-kreis {
+    animation: none;
+  }
+}
+
+.fehlermeldung {
+  padding: 0.75rem 1rem;
+  color: #7f1d1d;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-left-width: 4px;
+  border-radius: var(--radius);
+}
+
+.fehlermeldung p {
+  margin: 0;
+}
+
+.fehlermeldung button {
+  margin-top: 0.75rem;
+}
+
+/* Allgemeiner Button-Stil */
+button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  color: #ffffff;
+  cursor: pointer;
+  background: var(--farbe-primaer);
+  border: none;
+  border-radius: var(--radius);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

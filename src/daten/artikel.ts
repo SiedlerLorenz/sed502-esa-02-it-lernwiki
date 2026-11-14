@@ -170,4 +170,83 @@ git merge feature/login       # Änderungen in main übernehmen`,
     beispiel: `192.168.1.0/24 entspricht der Maske 255.255.255.0
 nutzbare Adressen: 192.168.1.1 bis 192.168.1.254`,
   },
+  {
+    id: 16,
+    titel: 'REST-API',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Representational_State_Transfer',
+    zusammenfassung:
+      'Eine REST-API stellt Daten über normale Web-Adressen bereit. Jede Ressource hat eine eigene URL, und die HTTP-Methode sagt, was passieren soll: GET liest, POST legt an, PUT ändert, DELETE löscht.',
+    stichwoerter: ['API', 'Schnittstelle', 'GET', 'POST', 'Endpunkt', 'URL'],
+    beispiel: `GET https://de.wikipedia.org/api/rest_v1/page/summary/Git
+→ liefert die Zusammenfassung des Wikipedia-Artikels "Git" als JSON`,
+  },
+  {
+    id: 17,
+    titel: 'JSON',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'JSON',
+    zusammenfassung:
+      'JSON (JavaScript Object Notation) ist ein Textformat für den Datenaustausch. Es kennt Objekte, Listen, Texte, Zahlen, true/false und null und wird von fast allen Web-APIs verwendet.',
+    stichwoerter: ['Datenformat', 'Objekt', 'Datenaustausch', 'parse', 'stringify'],
+    beispiel: `const text = '{"titel": "Git", "seiten": 42}';
+const objekt = JSON.parse(text);   // Text → Objekt
+console.log(objekt.titel);         // "Git"
+JSON.stringify(objekt);            // Objekt → Text`,
+  },
+  {
+    id: 18,
+    titel: 'HTTP-Statuscodes',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'HTTP-Statuscode',
+    zusammenfassung:
+      'Jede HTTP-Antwort enthält einen dreistelligen Statuscode. 2xx bedeutet Erfolg, 4xx einen Fehler der Anfrage (etwa 404 nicht gefunden oder 429 zu viele Anfragen) und 5xx einen Fehler des Servers.',
+    stichwoerter: ['200', '404', '429', '500', 'Fehler', 'Antwort'],
+    beispiel: `200 OK                  Anfrage erfolgreich
+404 Not Found           Ressource existiert nicht
+429 Too Many Requests   zu viele Anfragen in kurzer Zeit
+500 Internal Error      Fehler auf dem Server`,
+  },
+  {
+    id: 19,
+    titel: 'CORS',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Cross-Origin_Resource_Sharing',
+    zusammenfassung:
+      'Browser erlauben Anfragen an fremde Domains nur, wenn der Server es per Header freigibt. Fehlt der Header Access-Control-Allow-Origin, blockiert der Browser die Antwort, auch wenn der Server sie geschickt hat.',
+    stichwoerter: ['Cross-Origin', 'Header', 'Browser', 'Sicherheit', 'Same-Origin-Policy'],
+    beispiel: `Access-Control-Allow-Origin: *
+→ jede Webseite darf die Antwort lesen (z. B. bei der Wikipedia-API)`,
+  },
+  {
+    id: 20,
+    titel: 'Promise und async/await',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Future_(Programmierung)',
+    zusammenfassung:
+      'Ein Promise ist ein Platzhalter für ein Ergebnis, das erst später feststeht, etwa die Antwort eines Servers. Mit await wartet eine async-Funktion auf das Ergebnis, ohne den Browser zu blockieren.',
+    stichwoerter: ['asynchron', 'await', 'fetch', 'try', 'catch'],
+    beispiel: `async function ladeArtikel(): Promise<void> {
+  try {
+    const antwort = await fetch('/api/artikel');
+    const daten = await antwort.json();
+    console.log(daten);
+  } catch (fehler) {
+    console.error('Laden fehlgeschlagen', fehler);
+  }
+}`,
+  },
+  {
+    id: 21,
+    titel: 'TypeScript: Generics',
+    kategorie: 'Programmiersprachen',
+    wikipediaTitel: 'Generische_Programmierung',
+    zusammenfassung:
+      'Generics sind Typparameter, die erst beim Aufruf festgelegt werden. So funktioniert eine Funktion für viele Datentypen und bleibt trotzdem typsicher, ohne auf any auszuweichen.',
+    stichwoerter: ['Typparameter', 'TypeScript', 'wiederverwendbar', 'any'],
+    beispiel: `function ersterEintrag<T>(liste: T[]): T | undefined {
+  return liste[0];
+}
+const zahl = ersterEintrag<number>([3, 7]);   // Typ: number | undefined`,
+  },
 ];

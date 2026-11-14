@@ -32,6 +32,7 @@ export function zaehleKategorien(artikel: Artikel[]): Record<Kategorie, number> 
     Linux: 0,
     Git: 0,
     Netzwerk: 0,
+    Webentwicklung: 0,
   };
 
   return artikel.reduce((zaehler: Record<Kategorie, number>, eintrag: Artikel) => {
