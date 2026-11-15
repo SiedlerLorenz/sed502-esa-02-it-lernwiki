@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import WikipediaInfo from '../komponenten/WikipediaInfo.tsx';
 import { artikelListe } from '../daten/artikel.ts';
 
 // Detailseite eines Wiki-Artikels, erreichbar unter /artikel/:id
@@ -21,22 +22,27 @@ function ArtikelDetail(): React.JSX.Element {
   }
 
   return (
-    <article className="karte artikel-detail" aria-labelledby="detail-titel">
-      <p>
-        <Link to="/">← Zur Artikelübersicht</Link>
-      </p>
-      <h1 id="detail-titel">{artikel.titel}</h1>
-      <p className="artikel-kategorie">{artikel.kategorie}</p>
-      <p>{artikel.zusammenfassung}</p>
+    <div className="detailseite">
+      <article className="karte artikel-detail" aria-labelledby="detail-titel">
+        <p>
+          <Link to="/">← Zur Artikelübersicht</Link>
+        </p>
+        <h1 id="detail-titel">{artikel.titel}</h1>
+        <p className="artikel-kategorie">{artikel.kategorie}</p>
+        <p>{artikel.zusammenfassung}</p>
 
-      {artikel.beispiel !== undefined && (
-        <pre>
-          <code>{artikel.beispiel}</code>
-        </pre>
-      )}
+        {artikel.beispiel !== undefined && (
+          <pre>
+            <code>{artikel.beispiel}</code>
+          </pre>
+        )}
 
-      <p className="artikel-stichwoerter">Stichwörter: {artikel.stichwoerter.join(', ')}</p>
-    </article>
+        <p className="artikel-stichwoerter">Stichwörter: {artikel.stichwoerter.join(', ')}</p>
+      </article>
+
+      {/* Zusatzinformationen aus der Wikipedia-REST-API */}
+      <WikipediaInfo titel={artikel.wikipediaTitel} />
+    </div>
   );
 }
 

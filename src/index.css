@@ -286,3 +286,47 @@ button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
+
+/* ---------- Detailseite ---------- */
+
+.detailseite {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+/* Bild und Text der Wikipedia-Zusammenfassung: untereinander, ab 40rem nebeneinander */
+.wikipedia-inhalt {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: flex-start;
+}
+
+.wikipedia-inhalt img {
+  max-width: min(100%, 14rem);
+  height: auto; /* Seitenverhältnis bleibt trotz width/height-Attributen erhalten */
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+.wikipedia-inhalt > div {
+  flex: 1 1 20rem;
+}
+
+.wikipedia-inhalt h3 {
+  margin: 0;
+  color: var(--farbe-primaer);
+}
+
+.wikipedia-beschreibung {
+  margin-top: 0;
+  font-style: italic;
+  color: var(--farbe-text-gedaempft);
+}
+
+.wikipedia-quelle {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
