@@ -1,5 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom';
+import NachObenScrollen from './komponenten/NachObenScrollen.tsx';
 import Navigation from './komponenten/Navigation.tsx';
+import ArtikelDetail from './seiten/ArtikelDetail.tsx';
 import NichtGefunden from './seiten/NichtGefunden.tsx';
 import Startseite from './seiten/Startseite.tsx';
 
@@ -7,6 +9,7 @@ import Startseite from './seiten/Startseite.tsx';
 function App(): React.JSX.Element {
   return (
     <>
+      <NachObenScrollen />
       <a className="skip-link" href="#inhalt">
         Zum Hauptinhalt springen
       </a>
@@ -21,6 +24,8 @@ function App(): React.JSX.Element {
       <main id="inhalt">
         <Routes>
           <Route path="/" element={<Startseite />} />
+          {/* :id ist ein Platzhalter, z. B. /artikel/3 */}
+          <Route path="/artikel/:id" element={<ArtikelDetail />} />
           {/* Alle übrigen URLs: eigene 404-Seite */}
           <Route path="*" element={<NichtGefunden />} />
         </Routes>

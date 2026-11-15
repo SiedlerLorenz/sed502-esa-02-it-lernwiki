@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Artikel } from '../typen/artikel.ts';
 
 interface ArtikelKarteProps {
@@ -8,7 +9,9 @@ interface ArtikelKarteProps {
 function ArtikelKarte({ artikel }: ArtikelKarteProps): React.JSX.Element {
   return (
     <article className="artikel-karte">
-      <h3>{artikel.titel}</h3>
+      <h3>
+        <Link to={`/artikel/${artikel.id}`}>{artikel.titel}</Link>
+      </h3>
       <p className="artikel-kategorie">{artikel.kategorie}</p>
       <p>{artikel.zusammenfassung}</p>
 
