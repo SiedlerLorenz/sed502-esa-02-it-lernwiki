@@ -249,4 +249,80 @@ JSON.stringify(objekt);            // Objekt → Text`,
 }
 const zahl = ersterEintrag<number>([3, 7]);   // Typ: number | undefined`,
   },
+  {
+    id: 22,
+    titel: 'React: Komponenten',
+    kategorie: 'React',
+    wikipediaTitel: 'React',
+    zusammenfassung:
+      'Eine Komponente ist eine Funktion, die einen Teil der Oberfläche zurückgibt. Komponenten werden wie Bausteine zusammengesetzt, etwa Navigation, Artikelkarte und Seite.',
+    stichwoerter: ['Komponente', 'JSX', 'Funktion', 'Baustein', 'tsx'],
+    beispiel: `function Begruessung(): React.JSX.Element {
+  return <h1>Willkommen im IT-Lernwiki</h1>;
+}
+
+// Verwendung wie ein HTML-Element:
+<Begruessung />`,
+  },
+  {
+    id: 23,
+    titel: 'React: Props',
+    kategorie: 'React',
+    wikipediaTitel: 'Parameter_(Informatik)',
+    zusammenfassung:
+      'Props sind die Eingabewerte einer Komponente, vergleichbar mit Funktionsparametern. Sie fließen von der Eltern- zur Kindkomponente und werden in TypeScript mit einem Interface beschrieben.',
+    stichwoerter: ['Props', 'Interface', 'Eltern', 'Kind', 'Parameter'],
+    beispiel: `interface ArtikelKarteProps {
+  artikel: Artikel;
+}
+
+function ArtikelKarte({ artikel }: ArtikelKarteProps): React.JSX.Element {
+  return <h3>{artikel.titel}</h3>;
+}
+
+<ArtikelKarte artikel={artikelListe[0]} />`,
+  },
+  {
+    id: 24,
+    titel: 'React: State und useState',
+    kategorie: 'React',
+    wikipediaTitel: 'Reaktive_Programmierung',
+    zusammenfassung:
+      'State ist das Gedächtnis einer Komponente. Wird er mit der Setter-Funktion geändert, rendert React die Komponente neu und die Oberfläche passt sich automatisch an.',
+    stichwoerter: ['State', 'useState', 'Hook', 'Rendern', 'Setter'],
+    beispiel: `const [suchbegriff, setSuchbegriff] = useState<string>('');
+
+<input
+  value={suchbegriff}
+  onChange={(e) => setSuchbegriff(e.target.value)}
+/>`,
+  },
+  {
+    id: 25,
+    titel: 'React: useEffect',
+    kategorie: 'React',
+    wikipediaTitel: 'Wirkung_(Informatik)',
+    zusammenfassung:
+      'useEffect führt Nebenwirkungen aus, etwa Daten laden oder das Fenster scrollen. Das Abhängigkeits-Array legt fest, wann der Effekt erneut läuft, die Cleanup-Funktion räumt vorher auf.',
+    stichwoerter: ['useEffect', 'Abhängigkeiten', 'Cleanup', 'Nebenwirkung', 'Hook'],
+    beispiel: `const { pathname } = useLocation();
+
+useEffect(() => {
+  window.scrollTo(0, 0);   // läuft bei jedem Seitenwechsel
+}, [pathname]);`,
+  },
+  {
+    id: 26,
+    titel: 'React: Custom Hooks',
+    kategorie: 'React',
+    wikipediaTitel: 'Hook_(Informatik)',
+    zusammenfassung:
+      'Ein Custom Hook ist eine eigene Funktion, deren Name mit use beginnt und die andere Hooks nutzt. So lässt sich Logik wie das Laden von Daten in mehreren Komponenten wiederverwenden.',
+    stichwoerter: ['Custom Hook', 'useFetch', 'wiederverwendbar', 'Logik', 'Hook'],
+    beispiel: `const { daten, isLaden, fehler, neuLaden } =
+  useFetch<WikipediaZusammenfassung>(url);
+
+if (isLaden) return <Ladeanimation />;
+if (fehler !== null) return <FehlerMeldung nachricht={fehler} />;`,
+  },
 ];

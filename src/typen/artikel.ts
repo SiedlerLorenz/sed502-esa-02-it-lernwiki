@@ -1,5 +1,5 @@
 // Mögliche Kategorien des Wikis (Union Type: nur diese Werte sind erlaubt)
-export type Kategorie = 'Programmiersprachen' | 'Linux' | 'Git' | 'Netzwerk' | 'Webentwicklung';
+export type Kategorie = 'Programmiersprachen' | 'Linux' | 'Git' | 'Netzwerk' | 'Webentwicklung' | 'React';
 
 // Beschreibt die Datenstruktur eines Wiki-Artikels
 export interface Artikel {
