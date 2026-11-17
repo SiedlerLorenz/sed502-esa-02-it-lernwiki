@@ -34,6 +34,7 @@ export function zaehleKategorien(artikel: Artikel[]): Record<Kategorie, number> 
     Netzwerk: 0,
     Webentwicklung: 0,
     React: 0,
+    'Künstliche Intelligenz': 0,
   };
 
   return artikel.reduce((zaehler: Record<Kategorie, number>, eintrag: Artikel) => {

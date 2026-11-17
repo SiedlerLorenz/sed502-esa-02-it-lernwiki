@@ -325,4 +325,58 @@ useEffect(() => {
 if (isLaden) return <Ladeanimation />;
 if (fehler !== null) return <FehlerMeldung nachricht={fehler} />;`,
   },
+  {
+    id: 27,
+    titel: 'KI: Large Language Model',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Large_Language_Model',
+    zusammenfassung:
+      'Ein Large Language Model (LLM) ist ein mit sehr vielen Texten trainiertes Sprachmodell. Es sagt Wort für Wort voraus, wie ein Text weitergeht, und kann so Fragen beantworten oder Inhalte erklären. Antworten können trotzdem falsch sein.',
+    stichwoerter: ['LLM', 'Sprachmodell', 'Gemini', 'Token', 'Halluzination'],
+    beispiel: `Frage:   "Was ist ein Commit?"
+Modell:  "Ein" → "Commit" → "ist" → "ein" → "gespeicherter" → …
+         (jedes Wort wird aus den vorherigen vorhergesagt)`,
+  },
+  {
+    id: 28,
+    titel: 'KI: API-Schlüssel und .env',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Umgebungsvariable',
+    zusammenfassung:
+      'Ein API-Schlüssel weist eine Anwendung gegenüber einem Dienst aus und ist so geheim wie ein Passwort. Er gehört in eine .env-Datei, die über .gitignore nie ins Repository gelangt, und sollte nur auf einem Server verwendet werden.',
+    stichwoerter: ['API-Schlüssel', '.env', '.gitignore', 'Umgebungsvariable', 'Sicherheit'],
+    beispiel: `# .env (wird nicht committet)
+GEMINI_API_KEY=dein-schlüssel
+
+# .gitignore
+.env`,
+  },
+  {
+    id: 29,
+    titel: 'KI: Streaming',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Streaming_Media',
+    zusammenfassung:
+      'Beim Streaming liefert der Server die Antwort in vielen kleinen Teilen, während sie noch entsteht. Die Oberfläche zeigt den Text sofort an, statt auf die vollständige Antwort zu warten.',
+    stichwoerter: ['Streaming', 'Server-Sent Events', 'getReader', 'Echtzeit'],
+    beispiel: `const leser = antwort.body.getReader();
+while (true) {
+  const { done, value } = await leser.read();
+  if (done) break;
+  text += decoder.decode(value, { stream: true });
+}`,
+  },
+  {
+    id: 30,
+    titel: 'KI: Prompt und System-Prompt',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Prompt-Engineering',
+    zusammenfassung:
+      'Der Prompt ist die Eingabe an ein Sprachmodell. Der System-Prompt legt vorab Rolle, Aufgabe, Format und Grenzen fest. Je genauer er formuliert ist, desto verlässlicher passt die Antwort zur Anwendung.',
+    stichwoerter: ['Prompt', 'System-Prompt', 'Rolle', 'Anweisung', 'Temperatur'],
+    beispiel: `Rolle:     Du bist ein geduldiger IT-Tutor.
+Aufgabe:   Erkläre den folgenden Wiki-Artikel.
+Format:    Höchstens 150 Wörter, auf Deutsch.
+Grenzen:   Erfinde keine Fakten, die nicht im Artikel stehen.`,
+  },
 ];
