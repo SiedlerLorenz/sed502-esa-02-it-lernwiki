@@ -379,4 +379,67 @@ Aufgabe:   Erkläre den folgenden Wiki-Artikel.
 Format:    Höchstens 150 Wörter, auf Deutsch.
 Grenzen:   Erfinde keine Fakten, die nicht im Artikel stehen.`,
   },
+  {
+    id: 31,
+    titel: 'Tooling: Vite',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Vite_(Software)',
+    zusammenfassung:
+      'Vite ist Build-Werkzeug und Entwicklungsserver in einem. Im Entwicklungsmodus zeigt es Änderungen sofort im Browser an, für die Veröffentlichung bündelt und verkleinert es den Code im Ordner dist.',
+    stichwoerter: ['Vite', 'Build', 'Entwicklungsserver', 'Proxy', 'dist'],
+    beispiel: `npm create vite@latest mein-projekt -- --template react-ts
+npm run dev       # Entwicklungsserver auf http://localhost:5173
+npm run build     # Typprüfung und Produktions-Build nach dist/
+npm run preview   # gebauten Stand lokal ansehen`,
+  },
+  {
+    id: 32,
+    titel: 'Tooling: npm und Node.js',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Npm_(Software)',
+    zusammenfassung:
+      'Node.js führt JavaScript außerhalb des Browsers aus und treibt die Entwicklungswerkzeuge an. Der mitgelieferte Paketmanager npm installiert Bibliotheken; welche ein Projekt braucht, steht in der package.json.',
+    stichwoerter: ['npm', 'Node.js', 'package.json', 'node_modules', 'Paketmanager'],
+    beispiel: `node -v                          # installierte Node.js-Version
+npm install                      # alle Pakete aus package.json installieren
+npm install react-router-dom     # neues Paket hinzufügen`,
+  },
+  {
+    id: 33,
+    titel: 'Tooling: Linter',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Lint_(Programmierwerkzeug)',
+    zusammenfassung:
+      'Ein Linter prüft den Quellcode, ohne ihn auszuführen, und warnt vor typischen Fehlerquellen und unsauberem Stil. Im Projekt übernimmt das oxlint, unter anderem mit Regeln für React-Hooks.',
+    stichwoerter: ['Linter', 'oxlint', 'statische Analyse', 'Warnung', 'Codequalität'],
+    beispiel: `npm run lint
+
+warning react(set-state-in-effect): Calling setState synchronously
+within an effect can trigger cascading renders`,
+  },
+  {
+    id: 34,
+    titel: 'React: useRef',
+    kategorie: 'React',
+    wikipediaTitel: 'Referenz_(Programmierung)',
+    zusammenfassung:
+      'useRef speichert einen Wert über mehrere Renderdurchläufe hinweg, ohne dass eine Änderung neu rendert. Das eignet sich für Werte, die nicht angezeigt werden, etwa einen AbortController oder ein DOM-Element.',
+    stichwoerter: ['useRef', 'Referenz', 'current', 'AbortController', 'Hook'],
+    beispiel: `const controllerRef = useRef<AbortController | null>(null);
+
+controllerRef.current = new AbortController();   // kein neues Rendern
+controllerRef.current?.abort();                  // laufende Anfrage stoppen`,
+  },
+  {
+    id: 35,
+    titel: 'React: useCallback',
+    kategorie: 'React',
+    wikipediaTitel: 'Memoisation',
+    zusammenfassung:
+      'useCallback merkt sich eine Funktion und erzeugt sie nur neu, wenn sich ein Wert im Abhängigkeits-Array ändert. So bleibt die Funktion zwischen Renderdurchläufen gleich, etwa wenn sie an Kindkomponenten weitergegeben wird.',
+    stichwoerter: ['useCallback', 'Memoisation', 'Abhängigkeiten', 'Funktion', 'Hook'],
+    beispiel: `const abbrechen = useCallback((): void => {
+  controllerRef.current?.abort();
+}, []);   // leeres Array: Funktion wird nur einmal erzeugt`,
+  },
 ];
