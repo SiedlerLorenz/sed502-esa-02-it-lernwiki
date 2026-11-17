@@ -131,7 +131,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 12,
-    titel: 'TCP und UDP',
+    titel: 'Netzwerk: TCP und UDP',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Transmission_Control_Protocol',
     zusammenfassung:
@@ -141,7 +141,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 13,
-    titel: 'DNS',
+    titel: 'Netzwerk: DNS',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Domain_Name_System',
     zusammenfassung:
@@ -151,7 +151,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 14,
-    titel: 'HTTP und HTTPS',
+    titel: 'Netzwerk: HTTP und HTTPS',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Hypertext_Transfer_Protocol',
     zusammenfassung:
@@ -161,7 +161,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 15,
-    titel: 'IP-Adressen und Subnetze',
+    titel: 'Netzwerk: IP-Adressen und Subnetze',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Subnetz',
     zusammenfassung:
@@ -172,7 +172,7 @@ nutzbare Adressen: 192.168.1.1 bis 192.168.1.254`,
   },
   {
     id: 16,
-    titel: 'REST-API',
+    titel: 'Web: REST-API',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Representational_State_Transfer',
     zusammenfassung:
@@ -183,7 +183,7 @@ nutzbare Adressen: 192.168.1.1 bis 192.168.1.254`,
   },
   {
     id: 17,
-    titel: 'JSON',
+    titel: 'Web: JSON',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'JSON',
     zusammenfassung:
@@ -196,7 +196,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 18,
-    titel: 'HTTP-Statuscodes',
+    titel: 'Web: HTTP-Statuscodes',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'HTTP-Statuscode',
     zusammenfassung:
@@ -209,7 +209,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 19,
-    titel: 'CORS',
+    titel: 'Web: CORS',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Cross-Origin_Resource_Sharing',
     zusammenfassung:
@@ -220,7 +220,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 20,
-    titel: 'Promise und async/await',
+    titel: 'JavaScript: Promise und async/await',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Future_(Programmierung)',
     zusammenfassung:
