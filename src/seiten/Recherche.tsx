@@ -1,5 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
+import useFetch from '../hooks/useFetch.ts';
+import FehlerMeldung from '../komponenten/FehlerMeldung.tsx';
+import Ladeanimation from '../komponenten/Ladeanimation.tsx';
 import RechercheFormular from '../komponenten/RechercheFormular.tsx';
+import SuchTreffer from '../komponenten/SuchTreffer.tsx';
+import type { WikipediaSuchantwort } from '../typen/wikipedia.ts';
+
+const SUCH_API = 'https://de.wikipedia.org/w/rest.php/v1/search/page';
+const MAX_TREFFER = 10;
 
 // Recherche-Seite: freie Suche in der deutschen Wikipedia, erreichbar unter /recherche?q=…
 function Recherche(): React.JSX.Element {
@@ -7,21 +15,60 @@ function Recherche(): React.JSX.Element {
   const [suchParameter, setSuchParameter] = useSearchParams();
   const suchbegriff = suchParameter.get('q') ?? '';
 
+  // Ohne Suchbegriff ist die URL null, dann lädt useFetch nichts
+  const url =
+    suchbegriff === ''
+      ? null
+      : `${SUCH_API}?q=${encodeURIComponent(suchbegriff)}&limit=${MAX_TREFFER}`;
+  const { daten, isLaden, fehler, neuLaden } = useFetch<WikipediaSuchantwort>(url);
+
   const handleSuchen = (neuerBegriff: string): void => {
     setSuchParameter({ q: neuerBegriff });
   };
 
+  let ergebnis: React.ReactNode = null;
+  if (isLaden) {
+    ergebnis = <Ladeanimation text="Wikipedia wird durchsucht …" />;
+  } else if (fehler !== null) {
+    ergebnis = <FehlerMeldung nachricht={fehler} onErneutVersuchen={neuLaden} />;
+  } else if (daten !== null) {
+    ergebnis = (
+      <>
+        <p role="status">
+          {daten.pages.length === 0
+            ? `Keine Treffer für „${suchbegriff}“.`
+            : `${daten.pages.length} Treffer für „${suchbegriff}“:`}
+        </p>
+        <ul className="trefferliste">
+          {daten.pages.map((treffer) => (
+            <li key={treffer.id}>
+              <SuchTreffer treffer={treffer} />
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
+
   return (
-    <section className="karte" aria-labelledby="recherche-titel">
-      <h1 id="recherche-titel">Recherche</h1>
-      <p>
-        Hier lässt sich die gesamte deutsche Wikipedia durchsuchen, auch nach Begriffen, die es im
-        IT-Lernwiki noch nicht gibt.
-      </p>
-      {/* key: Ändert sich der Suchbegriff in der URL (z. B. über Zurück), wird das Formular neu befüllt */}
-      <RechercheFormular key={suchbegriff} startwert={suchbegriff} onSuchen={handleSuchen} />
-      {suchbegriff !== '' && <p>Suchbegriff: {suchbegriff}</p>}
-    </section>
+    <div className="detailseite">
+      <section className="karte" aria-labelledby="recherche-titel">
+        <h1 id="recherche-titel">Recherche</h1>
+        <p>
+          Hier lässt sich die gesamte deutsche Wikipedia durchsuchen, auch nach Begriffen, die es
+          im IT-Lernwiki noch nicht gibt.
+        </p>
+        {/* key: Ändert sich der Suchbegriff in der URL (z. B. über Zurück), wird das Formular neu befüllt */}
+        <RechercheFormular key={suchbegriff} startwert={suchbegriff} onSuchen={handleSuchen} />
+      </section>
+
+      {suchbegriff !== '' && (
+        <section className="karte" aria-labelledby="treffer-titel">
+          <h2 id="treffer-titel">Ergebnisse</h2>
+          {ergebnis}
+        </section>
+      )}
+    </div>
   );
 }
 
