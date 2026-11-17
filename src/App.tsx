@@ -3,6 +3,7 @@ import NachObenScrollen from './komponenten/NachObenScrollen.tsx';
 import Navigation from './komponenten/Navigation.tsx';
 import ArtikelDetail from './seiten/ArtikelDetail.tsx';
 import NichtGefunden from './seiten/NichtGefunden.tsx';
+import Recherche from './seiten/Recherche.tsx';
 import Startseite from './seiten/Startseite.tsx';
 
 // Wurzelkomponente: gemeinsames Seitenlayout und Zuordnung von URL zu Seite
@@ -26,6 +27,7 @@ function App(): React.JSX.Element {
           <Route path="/" element={<Startseite />} />
           {/* :id ist ein Platzhalter, z. B. /artikel/3 */}
           <Route path="/artikel/:id" element={<ArtikelDetail />} />
+          <Route path="/recherche" element={<Recherche />} />
           {/* Alle übrigen URLs: eigene 404-Seite */}
           <Route path="*" element={<NichtGefunden />} />
         </Routes>
