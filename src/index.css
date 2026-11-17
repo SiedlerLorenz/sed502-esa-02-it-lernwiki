@@ -330,3 +330,46 @@ button:disabled {
   font-size: 0.875rem;
   color: var(--farbe-text-gedaempft);
 }
+
+/* ---------- Formulare (Recherche) ---------- */
+
+.formular-zeile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.formular-zeile input {
+  flex: 1 1 14rem;
+}
+
+/* Ungültige Eingabe: roter Rand zusätzlich zur Textmeldung */
+input[aria-invalid='true'] {
+  border-color: #b91c1c;
+}
+
+.feldfehler {
+  margin: 0.5rem 0 0;
+  font-weight: 600;
+  color: #b91c1c;
+}
+
+/* Treffer der Recherche */
+.treffer-aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+/* Ausgewählter Treffer: deutlicher Rahmen */
+.artikel-karte.ausgewaehlt {
+  border: 2px solid var(--farbe-primaer);
+}
+
+/* Etwas Abstand nach oben, wenn per scrollIntoView zur Zusammenfassung gescrollt wird */
+.scroll-ziel {
+  scroll-margin-top: 1rem;
+}

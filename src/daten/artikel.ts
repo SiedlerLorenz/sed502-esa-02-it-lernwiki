@@ -325,4 +325,60 @@ useEffect(() => {
 if (isLaden) return <Ladeanimation />;
 if (fehler !== null) return <FehlerMeldung nachricht={fehler} />;`,
   },
+  {
+    id: 36,
+    titel: 'React: Formulare und Validierung',
+    kategorie: 'React',
+    wikipediaTitel: 'Webformular',
+    zusammenfassung:
+      'In React steht der Inhalt eines Eingabefelds im State (kontrolliertes Formular). Beim Absenden wird die Eingabe geprüft; ist sie ungültig, erscheint eine Fehlermeldung und die Aktion wird nicht ausgeführt.',
+    stichwoerter: ['Formular', 'Validierung', 'onSubmit', 'preventDefault', 'Fehlermeldung'],
+    beispiel: `const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  event.preventDefault();               // Seite nicht neu laden
+  const meldung = pruefeSuchbegriff(eingabe);
+  setFehler(meldung);
+  if (meldung === null) onSuchen(eingabe.trim());
+};`,
+  },
+  {
+    id: 37,
+    titel: 'React: URL-Parameter mit useSearchParams',
+    kategorie: 'React',
+    wikipediaTitel: 'Query-String',
+    zusammenfassung:
+      'Query-Parameter stehen in der Adresse nach dem Fragezeichen, etwa ?q=docker. Mit useSearchParams aus React Router lassen sie sich lesen und setzen; so kann man Suchergebnisse teilen und der Zurück-Button funktioniert.',
+    stichwoerter: ['useSearchParams', 'Query-String', 'URL', 'React Router', 'Zurück-Button'],
+    beispiel: `const [suchParameter, setSuchParameter] = useSearchParams();
+const suchbegriff = suchParameter.get('q') ?? '';
+
+setSuchParameter({ q: 'docker' });   // Adresse wird zu /recherche?q=docker`,
+  },
+  {
+    id: 38,
+    titel: 'Web: Barrierefreiheit mit ARIA',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Accessible_Rich_Internet_Applications',
+    zusammenfassung:
+      'ARIA-Attribute geben Screenreadern zusätzliche Informationen, die im HTML allein fehlen: ob ein Feld ungültig ist, welche Meldung dazugehört oder ob sich ein Bereich gerade aktualisiert.',
+    stichwoerter: ['ARIA', 'Barrierefreiheit', 'Screenreader', 'aria-invalid', 'role'],
+    beispiel: `<input
+  aria-invalid={fehler !== null}
+  aria-describedby="recherche-fehler"
+/>
+<p id="recherche-fehler" role="alert">Bitte einen Suchbegriff eingeben.</p>`,
+  },
+  {
+    id: 39,
+    titel: 'Web: Cross-Site-Scripting (XSS)',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Cross-Site-Scripting',
+    zusammenfassung:
+      'Bei Cross-Site-Scripting wird fremder Code über ungeprüfte Inhalte in eine Webseite eingeschleust. Schutz bietet, fremde Texte nie als HTML einzufügen; React stellt Inhalte in geschweiften Klammern automatisch als reinen Text dar.',
+    stichwoerter: ['XSS', 'Sicherheit', 'HTML', 'dangerouslySetInnerHTML', 'DOMParser'],
+    beispiel: `// unsicher: fremdes HTML wird ausgeführt
+<p dangerouslySetInnerHTML={{ __html: treffer.excerpt }} />
+
+// sicher: nur der reine Text wird angezeigt
+<p>{entferneHtml(treffer.excerpt)}</p>`,
+  },
 ];
