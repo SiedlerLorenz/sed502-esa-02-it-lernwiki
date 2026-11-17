@@ -131,7 +131,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 12,
-    titel: 'TCP und UDP',
+    titel: 'Netzwerk: TCP und UDP',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Transmission_Control_Protocol',
     zusammenfassung:
@@ -141,7 +141,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 13,
-    titel: 'DNS',
+    titel: 'Netzwerk: DNS',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Domain_Name_System',
     zusammenfassung:
@@ -151,7 +151,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 14,
-    titel: 'HTTP und HTTPS',
+    titel: 'Netzwerk: HTTP und HTTPS',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Hypertext_Transfer_Protocol',
     zusammenfassung:
@@ -161,7 +161,7 @@ git merge feature/login       # Änderungen in main übernehmen`,
   },
   {
     id: 15,
-    titel: 'IP-Adressen und Subnetze',
+    titel: 'Netzwerk: IP-Adressen und Subnetze',
     kategorie: 'Netzwerk',
     wikipediaTitel: 'Subnetz',
     zusammenfassung:
@@ -172,7 +172,7 @@ nutzbare Adressen: 192.168.1.1 bis 192.168.1.254`,
   },
   {
     id: 16,
-    titel: 'REST-API',
+    titel: 'Web: REST-API',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Representational_State_Transfer',
     zusammenfassung:
@@ -183,7 +183,7 @@ nutzbare Adressen: 192.168.1.1 bis 192.168.1.254`,
   },
   {
     id: 17,
-    titel: 'JSON',
+    titel: 'Web: JSON',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'JSON',
     zusammenfassung:
@@ -196,7 +196,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 18,
-    titel: 'HTTP-Statuscodes',
+    titel: 'Web: HTTP-Statuscodes',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'HTTP-Statuscode',
     zusammenfassung:
@@ -209,7 +209,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 19,
-    titel: 'CORS',
+    titel: 'Web: CORS',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Cross-Origin_Resource_Sharing',
     zusammenfassung:
@@ -220,7 +220,7 @@ JSON.stringify(objekt);            // Objekt → Text`,
   },
   {
     id: 20,
-    titel: 'Promise und async/await',
+    titel: 'JavaScript: Promise und async/await',
     kategorie: 'Webentwicklung',
     wikipediaTitel: 'Future_(Programmierung)',
     zusammenfassung:
@@ -324,6 +324,123 @@ useEffect(() => {
 
 if (isLaden) return <Ladeanimation />;
 if (fehler !== null) return <FehlerMeldung nachricht={fehler} />;`,
+  },
+  {
+    id: 27,
+    titel: 'KI: Large Language Model',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Large_Language_Model',
+    zusammenfassung:
+      'Ein Large Language Model (LLM) ist ein mit sehr vielen Texten trainiertes Sprachmodell. Es sagt Wort für Wort voraus, wie ein Text weitergeht, und kann so Fragen beantworten oder Inhalte erklären. Antworten können trotzdem falsch sein.',
+    stichwoerter: ['LLM', 'Sprachmodell', 'Gemini', 'Token', 'Halluzination'],
+    beispiel: `Frage:   "Was ist ein Commit?"
+Modell:  "Ein" → "Commit" → "ist" → "ein" → "gespeicherter" → …
+         (jedes Wort wird aus den vorherigen vorhergesagt)`,
+  },
+  {
+    id: 28,
+    titel: 'KI: API-Schlüssel und .env',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Umgebungsvariable',
+    zusammenfassung:
+      'Ein API-Schlüssel weist eine Anwendung gegenüber einem Dienst aus und ist so geheim wie ein Passwort. Er gehört in eine .env-Datei, die über .gitignore nie ins Repository gelangt, und sollte nur auf einem Server verwendet werden.',
+    stichwoerter: ['API-Schlüssel', '.env', '.gitignore', 'Umgebungsvariable', 'Sicherheit'],
+    beispiel: `# .env (wird nicht committet)
+GEMINI_API_KEY=dein-schlüssel
+
+# .gitignore
+.env`,
+  },
+  {
+    id: 29,
+    titel: 'KI: Streaming',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Streaming_Media',
+    zusammenfassung:
+      'Beim Streaming liefert der Server die Antwort in vielen kleinen Teilen, während sie noch entsteht. Die Oberfläche zeigt den Text sofort an, statt auf die vollständige Antwort zu warten.',
+    stichwoerter: ['Streaming', 'Server-Sent Events', 'getReader', 'Echtzeit'],
+    beispiel: `const leser = antwort.body.getReader();
+while (true) {
+  const { done, value } = await leser.read();
+  if (done) break;
+  text += decoder.decode(value, { stream: true });
+}`,
+  },
+  {
+    id: 30,
+    titel: 'KI: Prompt und System-Prompt',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Prompt-Engineering',
+    zusammenfassung:
+      'Der Prompt ist die Eingabe an ein Sprachmodell. Der System-Prompt legt vorab Rolle, Aufgabe, Format und Grenzen fest. Je genauer er formuliert ist, desto verlässlicher passt die Antwort zur Anwendung.',
+    stichwoerter: ['Prompt', 'System-Prompt', 'Rolle', 'Anweisung', 'Temperatur'],
+    beispiel: `Rolle:     Du bist ein geduldiger IT-Tutor.
+Aufgabe:   Erkläre den folgenden Wiki-Artikel.
+Format:    Höchstens 150 Wörter, auf Deutsch.
+Grenzen:   Erfinde keine Fakten, die nicht im Artikel stehen.`,
+  },
+  {
+    id: 31,
+    titel: 'Tooling: Vite',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Vite_(Software)',
+    zusammenfassung:
+      'Vite ist Build-Werkzeug und Entwicklungsserver in einem. Im Entwicklungsmodus zeigt es Änderungen sofort im Browser an, für die Veröffentlichung bündelt und verkleinert es den Code im Ordner dist.',
+    stichwoerter: ['Vite', 'Build', 'Entwicklungsserver', 'Proxy', 'dist'],
+    beispiel: `npm create vite@latest mein-projekt -- --template react-ts
+npm run dev       # Entwicklungsserver auf http://localhost:5173
+npm run build     # Typprüfung und Produktions-Build nach dist/
+npm run preview   # gebauten Stand lokal ansehen`,
+  },
+  {
+    id: 32,
+    titel: 'Tooling: npm und Node.js',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Npm_(Software)',
+    zusammenfassung:
+      'Node.js führt JavaScript außerhalb des Browsers aus und treibt die Entwicklungswerkzeuge an. Der mitgelieferte Paketmanager npm installiert Bibliotheken; welche ein Projekt braucht, steht in der package.json.',
+    stichwoerter: ['npm', 'Node.js', 'package.json', 'node_modules', 'Paketmanager'],
+    beispiel: `node -v                          # installierte Node.js-Version
+npm install                      # alle Pakete aus package.json installieren
+npm install react-router-dom     # neues Paket hinzufügen`,
+  },
+  {
+    id: 33,
+    titel: 'Tooling: Linter',
+    kategorie: 'Webentwicklung',
+    wikipediaTitel: 'Lint_(Programmierwerkzeug)',
+    zusammenfassung:
+      'Ein Linter prüft den Quellcode, ohne ihn auszuführen, und warnt vor typischen Fehlerquellen und unsauberem Stil. Im Projekt übernimmt das oxlint, unter anderem mit Regeln für React-Hooks.',
+    stichwoerter: ['Linter', 'oxlint', 'statische Analyse', 'Warnung', 'Codequalität'],
+    beispiel: `npm run lint
+
+warning react(set-state-in-effect): Calling setState synchronously
+within an effect can trigger cascading renders`,
+  },
+  {
+    id: 34,
+    titel: 'React: useRef',
+    kategorie: 'React',
+    wikipediaTitel: 'Referenz_(Programmierung)',
+    zusammenfassung:
+      'useRef speichert einen Wert über mehrere Renderdurchläufe hinweg, ohne dass eine Änderung neu rendert. Das eignet sich für Werte, die nicht angezeigt werden, etwa einen AbortController oder ein DOM-Element.',
+    stichwoerter: ['useRef', 'Referenz', 'current', 'AbortController', 'Hook'],
+    beispiel: `const controllerRef = useRef<AbortController | null>(null);
+
+controllerRef.current = new AbortController();   // kein neues Rendern
+controllerRef.current?.abort();                  // laufende Anfrage stoppen`,
+  },
+  {
+    id: 35,
+    titel: 'React: useCallback',
+    kategorie: 'React',
+    wikipediaTitel: 'Memoisation',
+    zusammenfassung:
+      'useCallback merkt sich eine Funktion und erzeugt sie nur neu, wenn sich ein Wert im Abhängigkeits-Array ändert. So bleibt die Funktion zwischen Renderdurchläufen gleich, etwa wenn sie an Kindkomponenten weitergegeben wird.',
+    stichwoerter: ['useCallback', 'Memoisation', 'Abhängigkeiten', 'Funktion', 'Hook'],
+    beispiel: `const abbrechen = useCallback((): void => {
+  controllerRef.current?.abort();
+}, []);   // leeres Array: Funktion wird nur einmal erzeugt`,
   },
   {
     id: 36,
