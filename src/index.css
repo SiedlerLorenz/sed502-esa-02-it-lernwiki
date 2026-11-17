@@ -354,3 +354,22 @@ input[aria-invalid='true'] {
   font-weight: 600;
   color: #b91c1c;
 }
+
+/* Treffer der Recherche */
+.treffer-aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+/* Ausgewählter Treffer: deutlicher Rahmen */
+.artikel-karte.ausgewaehlt {
+  border: 2px solid var(--farbe-primaer);
+}
+
+/* Etwas Abstand nach oben, wenn per scrollIntoView zur Zusammenfassung gescrollt wird */
+.scroll-ziel {
+  scroll-margin-top: 1rem;
+}
