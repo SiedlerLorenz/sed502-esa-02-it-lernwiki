@@ -373,3 +373,68 @@ input[aria-invalid='true'] {
 .scroll-ziel {
   scroll-margin-top: 1rem;
 }
+
+/* ---------- KI-Antworten ---------- */
+
+.ki-antwort {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f3f0ff;
+  border: 1px solid #c4b5fd;
+  border-radius: var(--radius);
+}
+
+/* Kennzeichnung als KI-Inhalt */
+.ki-kennzeichnung {
+  display: inline-block;
+  margin: 0 0 0.75rem;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4c1d95;
+  background: #ede9fe;
+  border-radius: 999px;
+}
+
+/* Zeilenumbrüche der KI beibehalten */
+.ki-text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Blinkender Cursor, solange die KI schreibt */
+.ki-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: blinken 1s steps(1) infinite;
+}
+
+@keyframes blinken {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ki-cursor {
+    animation: none;
+  }
+}
+
+.ki-hinweis {
+  margin: 0.75rem 0 0;
+  font-style: italic;
+  color: var(--farbe-text-gedaempft);
+}
+
+.ki-aktionen {
+  margin: 0.75rem 0 0;
+}
+
+.ki-aktionen:empty {
+  display: none;
+}
