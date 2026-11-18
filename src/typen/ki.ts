@@ -41,12 +41,3 @@ export interface GeminiStreamTeil {
     finishReason?: string; // z. B. "STOP" (fertig), "MAX_TOKENS" oder "SAFETY"
   }[];
 }
-
-// Fehlerantwort von Gemini (z. B. bei ungültigem Schlüssel oder Überlastung)
-export interface GeminiFehlerAntwort {
-  error: {
-    code: number;
-    message: string;
-    status: string; // z. B. "UNAVAILABLE" oder "PERMISSION_DENIED"
-  };
-}
