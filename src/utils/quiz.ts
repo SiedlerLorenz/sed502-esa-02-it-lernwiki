@@ -96,3 +96,50 @@ export function erstelleQuizPrompt(artikel: Artikel): string {
   }
   return teile.join('\n');
 }
+
+// Punkte für eine Frage (0 bis 1), Teilpunkte mit Abzug:
+// jede angekreuzte richtige Antwort  +1 / Anzahl richtiger Antworten
+// jede angekreuzte falsche Antwort   −1 / Anzahl falscher Antworten
+// Ergebnis nie unter 0, auf zwei Nachkommastellen gerundet
+export function berechnePunkte(frage: QuizFrage, auswahl: number[]): number {
+  const anzahlRichtig = frage.richtigeAntworten.length;
+  const anzahlFalsch = ANTWORTEN_PRO_FRAGE - anzahlRichtig;
+
+  const punkte = auswahl.reduce((summe, index) => {
+    if (frage.richtigeAntworten.includes(index)) {
+      return summe + 1 / anzahlRichtig;
+    }
+    return anzahlFalsch > 0 ? summe - 1 / anzahlFalsch : summe;
+  }, 0);
+
+  return Math.round(Math.max(0, punkte) * 100) / 100;
+}
+
+/*
+ * System-Prompt für die Erklärung einer Quizfrage
+ * Rolle:     geduldiger IT-Tutor
+ * Aufgabe:   erklären, welche Antworten richtig sind und warum, mit Bezug auf die Auswahl der lernenden Person
+ * Format:    reiner Text ohne Markdown, höchstens 120 Wörter, Deutsch
+ * Grenzen:   Artikel plus gesichertes Fachwissen, freundlich, ohne Bewertung der Person
+ */
+export const ERKLAERUNG_SYSTEM_PROMPT = `Du bist ein geduldiger IT-Tutor im IT-Lernwiki.
+Erkläre zu einer Quizfrage kurz, welche Antworten richtig sind und warum. Gehe dabei auf die Antworten ein, die die lernende Person falsch angekreuzt oder vergessen hat.
+Regeln:
+- Höchstens 120 Wörter, auf Deutsch, freundlich und leicht verständlich.
+- Reiner Text ohne Markdown, keine Aufzählungszeichen mit Sternchen.
+- Stütze dich auf den Artikel und gesichertes, allgemein anerkanntes Fachwissen; erfinde nichts dazu.`;
+
+// Baut die Anfrage für die Erklärung einer Frage
+export function erstelleErklaerungsPrompt(artikel: Artikel, frage: QuizFrage, auswahl: number[]): string {
+  const zeilen = frage.antworten.map((antwort, index) => {
+    const richtig = frage.richtigeAntworten.includes(index) ? 'richtig' : 'falsch';
+    const angekreuzt = auswahl.includes(index) ? 'angekreuzt' : 'nicht angekreuzt';
+    return `${index + 1}. ${antwort} (${richtig}, ${angekreuzt})`;
+  });
+  return [
+    `Artikel: ${artikel.titel} – ${artikel.zusammenfassung}`,
+    `Frage: ${frage.frage}`,
+    'Antworten:',
+    ...zeilen,
+  ].join('\n');
+}

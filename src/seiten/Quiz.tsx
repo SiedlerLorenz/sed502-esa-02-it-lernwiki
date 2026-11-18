@@ -2,18 +2,30 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useKI from '../hooks/useKI.ts';
 import FehlerMeldung from '../komponenten/FehlerMeldung.tsx';
+import KiAntwort from '../komponenten/KiAntwort.tsx';
 import Ladeanimation from '../komponenten/Ladeanimation.tsx';
 import QuizFrageKarte from '../komponenten/QuizFrageKarte.tsx';
 import { artikelListe } from '../daten/artikel.ts';
 import type { GeminiEinstellungen } from '../typen/ki.ts';
 import type { QuizFrage } from '../typen/quiz.ts';
-import { erstelleQuizPrompt, leseQuizFragen, QUIZ_SYSTEM_PROMPT } from '../utils/quiz.ts';
+import {
+  berechnePunkte,
+  ERKLAERUNG_SYSTEM_PROMPT,
+  erstelleErklaerungsPrompt,
+  erstelleQuizPrompt,
+  leseQuizFragen,
+  QUIZ_SYSTEM_PROMPT,
+} from '../utils/quiz.ts';
 
-// Außerhalb der Komponente, damit das Objekt bei jedem Rendern dasselbe bleibt (stabil für useCallback in useKI)
+// Außerhalb der Komponente, damit die Objekte bei jedem Rendern dieselben bleiben (stabil für useCallback in useKI)
 const QUIZ_EINSTELLUNGEN: GeminiEinstellungen = {
   temperature: 0.4,
   responseMimeType: 'application/json', // die KI muss gültiges JSON liefern
   thinkingConfig: { thinkingLevel: 'low' }, // wenig Nachdenken: wenige Sekunden statt mehrerer Minuten
+};
+const ERKLAERUNG_EINSTELLUNGEN: GeminiEinstellungen = {
+  temperature: 0.3,
+  thinkingConfig: { thinkingLevel: 'low' },
 };
 
 // Alle Kategorien in der Reihenfolge ihres ersten Vorkommens, ohne Doppelte (für die Gruppierung der Auswahl)
@@ -29,8 +41,13 @@ function Quiz(): React.JSX.Element {
   const [auswahlFehler, setAuswahlFehler] = useState<string | null>(null);
   // Angekreuzte Antworten: pro Frage eine Liste von Antwort-Indizes
   const [auswahlen, setAuswahlen] = useState<number[][]>([]);
+  const [isAusgewertet, setIsAusgewertet] = useState<boolean>(false);
+  // Frage, zu der gerade eine Erklärung angezeigt wird
+  const [erklaerteFrage, setErklaerteFrage] = useState<number | null>(null);
 
+  // Zwei unabhängige KI-Anfragen: eine erstellt das Quiz, eine erklärt einzelne Fragen
   const ki = useKI({ systemPrompt: QUIZ_SYSTEM_PROMPT, einstellungen: QUIZ_EINSTELLUNGEN });
+  const erklaerung = useKI({ systemPrompt: ERKLAERUNG_SYSTEM_PROMPT, einstellungen: ERKLAERUNG_EINSTELLUNGEN });
 
   // Fragen werden aus der fertigen KI-Antwort abgeleitet, nicht in einem eigenen State gespeichert
   let fragen: QuizFrage[] | null = null;
@@ -43,21 +60,40 @@ function Quiz(): React.JSX.Element {
     }
   }
 
+  // Punkte pro Frage, sobald ausgewertet wurde (sonst null)
+  const punkteProFrage =
+    isAusgewertet && fragen !== null
+      ? fragen.map((frage, index) => berechnePunkte(frage, auswahlen[index] ?? []))
+      : null;
+  const gesamtPunkte = punkteProFrage?.reduce((summe, punkte) => summe + punkte, 0) ?? 0;
+
+  // Antworten, Auswertung und Erklärung zurücksetzen (bei neuem Quiz oder neuem Versuch)
+  const antwortenZuruecksetzen = (): void => {
+    setAuswahlen([]);
+    setIsAusgewertet(false);
+    setErklaerteFrage(null);
+    erklaerung.zuruecksetzen();
+  };
+
   const handleArtikelWechsel = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setSuchParameter(event.target.value === '' ? {} : { artikel: event.target.value });
     setAuswahlFehler(null);
     ki.zuruecksetzen();
-    setAuswahlen([]);
+    antwortenZuruecksetzen();
   };
 
-  const handleErstellen = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  const quizErstellen = (): void => {
     if (artikel === undefined) {
       setAuswahlFehler('Bitte zuerst einen Artikel auswählen.');
       return;
     }
-    setAuswahlen([]);
+    antwortenZuruecksetzen();
     void ki.frageStellen(erstelleQuizPrompt(artikel));
+  };
+
+  const handleErstellen = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    quizErstellen();
   };
 
   // Antwort an- oder abwählen; es entsteht immer eine neue Liste (Immutabilität)
@@ -70,6 +106,21 @@ function Quiz(): React.JSX.Element {
         : [...aktuell, antwortIndex];
       return neu;
     });
+  };
+
+  const handleAuswerten = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setIsAusgewertet(true);
+  };
+
+  const handleWarum = (frageIndex: number): void => {
+    if (fragen === null || artikel === undefined) {
+      return;
+    }
+    setErklaerteFrage(frageIndex);
+    void erklaerung.frageStellen(
+      erstelleErklaerungsPrompt(artikel, fragen[frageIndex], auswahlen[frageIndex] ?? []),
+    );
   };
 
   return (
@@ -128,12 +179,7 @@ function Quiz(): React.JSX.Element {
         )}
         {ki.hinweis !== null && <p className="ki-hinweis">{ki.hinweis}</p>}
         {(ki.fehler ?? quizFehler) !== null && (
-          <FehlerMeldung
-            nachricht={ki.fehler ?? quizFehler ?? ''}
-            onErneutVersuchen={
-              artikel === undefined ? undefined : () => void ki.frageStellen(erstelleQuizPrompt(artikel))
-            }
-          />
+          <FehlerMeldung nachricht={ki.fehler ?? quizFehler ?? ''} onErneutVersuchen={quizErstellen} />
         )}
       </section>
 
@@ -141,15 +187,62 @@ function Quiz(): React.JSX.Element {
         <section className="karte" aria-labelledby="fragen-titel">
           <h2 id="fragen-titel">Fragen zu „{artikel.titel}“</h2>
           <p className="ki-kennzeichnung">KI-generierter Inhalt · kann Fehler enthalten</p>
-          {fragen.map((frage, frageIndex) => (
-            <QuizFrageKarte
-              key={`${frageIndex}-${frage.frage}`}
-              frage={frage}
-              nummer={frageIndex + 1}
-              auswahl={auswahlen[frageIndex] ?? []}
-              onUmschalten={(antwortIndex) => handleUmschalten(frageIndex, antwortIndex)}
-            />
-          ))}
+
+          <form onSubmit={handleAuswerten}>
+            {fragen.map((frage, frageIndex) => {
+              const punkte = punkteProFrage?.[frageIndex] ?? null;
+              return (
+                <QuizFrageKarte
+                  key={`${frageIndex}-${frage.frage}`}
+                  frage={frage}
+                  nummer={frageIndex + 1}
+                  auswahl={auswahlen[frageIndex] ?? []}
+                  onUmschalten={(antwortIndex) => handleUmschalten(frageIndex, antwortIndex)}
+                  punkte={punkte}
+                >
+                  {/* Erklärung nur bei Fragen ohne volle Punktzahl */}
+                  {punkte !== null && punkte < 1 && (
+                    <p className="ki-aktionen">
+                      <button
+                        type="button"
+                        onClick={() => handleWarum(frageIndex)}
+                        disabled={erklaerung.isStreaming}
+                      >
+                        Warum? Erklärung anzeigen
+                      </button>
+                    </p>
+                  )}
+                  {erklaerteFrage === frageIndex && (
+                    <KiAntwort
+                      antwort={erklaerung.antwort}
+                      isStreaming={erklaerung.isStreaming}
+                      fehler={erklaerung.fehler}
+                      hinweis={erklaerung.hinweis}
+                      onAbbrechen={erklaerung.abbrechen}
+                      onErneutVersuchen={() => handleWarum(frageIndex)}
+                      ladeText="Die KI erklärt die Frage …"
+                    />
+                  )}
+                </QuizFrageKarte>
+              );
+            })}
+
+            {isAusgewertet ? (
+              <>
+                <p className="quiz-ergebnis" role="status">
+                  Ergebnis: {gesamtPunkte.toLocaleString('de-AT', { maximumFractionDigits: 1 })} von{' '}
+                  {fragen.length} Punkten
+                </p>
+                <button type="button" onClick={antwortenZuruecksetzen}>
+                  Nochmal versuchen
+                </button>
+              </>
+            ) : (
+              <p className="ki-aktionen">
+                <button type="submit">Auswerten</button>
+              </p>
+            )}
+          </form>
         </section>
       )}
     </div>

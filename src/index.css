@@ -496,3 +496,32 @@ select[aria-invalid='true'] {
   margin: 0;
   font-weight: 400;
 }
+
+/* Auswertung: Kennzeichnung mit Farbe und Text (nicht nur über Farbe) */
+.quiz-frage li.antwort-richtig label {
+  color: #166534;
+}
+
+.quiz-frage li.antwort-vergessen label {
+  color: #92400e;
+}
+
+.quiz-frage li.antwort-falsch label {
+  color: #b91c1c;
+}
+
+.antwort-bewertung {
+  font-size: 0.875rem;
+}
+
+.frage-punkte {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+}
+
+.quiz-ergebnis {
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--farbe-primaer);
+}
