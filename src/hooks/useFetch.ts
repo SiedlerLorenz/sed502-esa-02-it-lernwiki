@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchJSON } from '../utils/fetchJSON.ts';
 
 // Was der Hook an die Komponente zurückgibt: die drei Zustände und eine Funktion zum erneuten Laden
-interface UseFetchErgebnis<T> {
+export interface UseFetchErgebnis<T> {
   daten: T | null; // Erfolg: die geladenen Daten
   isLaden: boolean; // Laden: die Anfrage läuft gerade
   fehler: string | null; // Fehler: verständliche Fehlermeldung

@@ -1,7 +1,8 @@
 import { erstelleFehlertext } from './fetchJSON.ts';
 
-// Übersetzt den HTTP-Status einer KI-Anfrage in eine verständliche Fehlermeldung
-export function erstelleKiFehlertext(status: number): string {
+// Übersetzt den HTTP-Status einer KI-Anfrage in eine verständliche Fehlermeldung.
+// details: Text der Fehlerantwort von Gemini (z. B. mit der Art des überschrittenen Kontingents)
+export function erstelleKiFehlertext(status: number, details = ''): string {
   if (status === 400 || status === 401 || status === 403) {
     return `Die KI hat die Anfrage abgelehnt. Bitte prüfen, ob in der Datei .env ein gültiger GEMINI_API_KEY eingetragen ist (${status}).`;
   }
@@ -9,7 +10,11 @@ export function erstelleKiFehlertext(status: number): string {
     return 'Das eingestellte KI-Modell ist nicht verfügbar. Bitte GEMINI_MODELL in der Datei .env prüfen (404).';
   }
   if (status === 429) {
-    return 'Das kostenlose Kontingent der KI ist im Moment ausgeschöpft. Bitte etwa eine Minute warten und erneut versuchen (429).';
+    // Gemini nennt das überschrittene Kontingent, z. B. "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+    if (details.includes('PerDay')) {
+      return 'Das kostenlose Tageskontingent der KI ist aufgebraucht. Es wird von Google täglich zurückgesetzt; alternativ kann in der Datei .env unter GEMINI_MODELL ein anderes Modell eingetragen werden (429).';
+    }
+    return 'Zu viele KI-Anfragen in kurzer Zeit. Bitte etwa eine Minute warten und erneut versuchen (429).';
   }
   if (status === 500 || status === 503) {
     return `Der KI-Dienst ist gerade überlastet. Bitte in ein paar Sekunden erneut versuchen (${status}).`;

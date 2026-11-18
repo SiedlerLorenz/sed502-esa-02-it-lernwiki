@@ -7,7 +7,7 @@ interface SuchfeldProps {
 // Kontrolliertes Eingabefeld: Der angezeigte Text kommt immer aus dem State der Elternkomponente
 function Suchfeld({ wert, onAendern }: SuchfeldProps): React.JSX.Element {
   // Enter im Suchfeld soll die Seite nicht neu laden
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
   };
 

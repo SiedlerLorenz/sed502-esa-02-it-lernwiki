@@ -91,7 +91,7 @@ function Quiz(): React.JSX.Element {
     void ki.frageStellen(erstelleQuizPrompt(artikel));
   };
 
-  const handleErstellen = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleErstellen = (event: React.SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
     quizErstellen();
   };
@@ -108,7 +108,7 @@ function Quiz(): React.JSX.Element {
     });
   };
 
-  const handleAuswerten = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleAuswerten = (event: React.SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
     setIsAusgewertet(true);
   };

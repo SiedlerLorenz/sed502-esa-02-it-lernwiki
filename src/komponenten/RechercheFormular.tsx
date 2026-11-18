@@ -11,7 +11,7 @@ function RechercheFormular({ startwert, onSuchen }: RechercheFormularProps): Rea
   const [eingabe, setEingabe] = useState<string>(startwert);
   const [fehler, setFehler] = useState<string | null>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const meldung = pruefeSuchbegriff(eingabe);
     setFehler(meldung);

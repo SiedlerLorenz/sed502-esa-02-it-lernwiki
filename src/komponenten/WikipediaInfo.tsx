@@ -1,20 +1,16 @@
-import useFetch from '../hooks/useFetch.ts';
+import type { UseFetchErgebnis } from '../hooks/useFetch.ts';
 import type { WikipediaZusammenfassung } from '../typen/wikipedia.ts';
 import FehlerMeldung from './FehlerMeldung.tsx';
 import Ladeanimation from './Ladeanimation.tsx';
 
 interface WikipediaInfoProps {
-  titel: string; // Seitentitel in der deutschen Wikipedia, z. B. "Unix-Shell"
+  // Ergebnis von useWikipedia: Die Seite lädt die Daten und kann sie so auch anderweitig nutzen
+  wikipedia: UseFetchErgebnis<WikipediaZusammenfassung>;
 }
 
-const API_BASIS = 'https://de.wikipedia.org/api/rest_v1/page/summary/';
-
-// Lädt die Zusammenfassung eines Wikipedia-Artikels und zeigt Laden, Fehler oder Ergebnis an
-function WikipediaInfo({ titel }: WikipediaInfoProps): React.JSX.Element {
-  // encodeURIComponent: Sonderzeichen im Titel (z. B. Umlaute) werden für die URL umgewandelt
-  const { daten, isLaden, fehler, neuLaden } = useFetch<WikipediaZusammenfassung>(
-    API_BASIS + encodeURIComponent(titel),
-  );
+// Zeigt die Zusammenfassung eines Wikipedia-Artikels mit Laden, Fehler oder Ergebnis an
+function WikipediaInfo({ wikipedia }: WikipediaInfoProps): React.JSX.Element {
+  const { daten, isLaden, fehler, neuLaden } = wikipedia;
 
   // Je nach Zustand wird ein anderer Inhalt angezeigt
   let inhalt: React.ReactNode;

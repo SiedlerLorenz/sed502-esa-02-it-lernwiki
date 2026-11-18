@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch.ts';
+import useWikipedia from '../hooks/useWikipedia.ts';
 import FehlerMeldung from '../komponenten/FehlerMeldung.tsx';
 import Ladeanimation from '../komponenten/Ladeanimation.tsx';
 import RechercheFormular from '../komponenten/RechercheFormular.tsx';
@@ -18,6 +19,7 @@ function Recherche(): React.JSX.Element {
   const suchbegriff = suchParameter.get('q') ?? '';
   // Ausgewählter Treffer, ebenfalls in der URL (?auswahl=…)
   const auswahl = suchParameter.get('auswahl');
+  const wikipedia = useWikipedia(auswahl);
 
   // Bereich der Zusammenfassung, um nach einer Auswahl dorthin zu scrollen
   const zusammenfassungRef = useRef<HTMLDivElement>(null);
@@ -96,7 +98,7 @@ function Recherche(): React.JSX.Element {
       {/* Zusammenfassung des ausgewählten Treffers (WikipediaInfo wird wiederverwendet) */}
       {auswahl !== null && (
         <div ref={zusammenfassungRef} className="scroll-ziel">
-          <WikipediaInfo titel={auswahl} />
+          <WikipediaInfo wikipedia={wikipedia} />
         </div>
       )}
 

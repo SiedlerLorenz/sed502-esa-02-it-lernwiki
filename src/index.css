@@ -561,3 +561,94 @@ select[aria-invalid='true'] {
 .kategorie-anzahl {
   font-weight: 700;
 }
+
+/* ---------- KI-Tutor ---------- */
+
+.tutor-niveaus {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+/* Zweispaltig ab mittlerer Breite */
+@media (min-width: 40rem) {
+  .tutor-niveaus {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tutor-niveaus legend {
+    grid-column: 1 / -1;
+  }
+}
+
+.tutor-niveaus legend {
+  padding: 0 0.25rem;
+  font-weight: 700;
+}
+
+.tutor-niveau {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.tutor-niveau input {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.25rem;
+}
+
+.tutor-niveau label {
+  margin: 0;
+  font-weight: 400;
+}
+
+.tutor-niveau-beschreibung {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
+
+/* Eigene Frage an den Tutor */
+.tutor-frage {
+  margin-top: 1.25rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--farbe-text);
+  background: #ffffff;
+  border: 2px solid var(--farbe-text-gedaempft);
+  border-radius: var(--radius);
+  resize: vertical;
+}
+
+textarea:focus-visible {
+  outline: 3px solid var(--farbe-fokus);
+  outline-offset: 2px;
+}
+
+textarea[aria-invalid='true'] {
+  border-color: #b91c1c;
+}
+
+.zeichenzaehler {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  text-align: right;
+  color: var(--farbe-text-gedaempft);
+}
+
+/* Überschrift über der Antwort: welche Erklärung oder Frage beantwortet wird */
+.tutor-anfrage {
+  margin: 1.25rem 0 0;
+  font-weight: 700;
+  color: var(--farbe-primaer);
+}
