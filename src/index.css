@@ -525,3 +525,39 @@ select[aria-invalid='true'] {
   font-weight: 700;
   color: var(--farbe-primaer);
 }
+
+/* ---------- Kategorie-Filter ---------- */
+
+/* Kategorien als untereinander stehende Filterknöpfe statt Aufzählung */
+.bereich-kategorien .kategorien-liste {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.kategorie-knopf {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  color: var(--farbe-text);
+  text-align: left;
+  background: var(--farbe-hintergrund);
+  border: 1px solid var(--farbe-rand);
+}
+
+.kategorie-knopf:hover {
+  border-color: var(--farbe-primaer);
+}
+
+/* Aktiver Filter: dunkel hinterlegt (zusätzlich aria-pressed für Screenreader) */
+.kategorie-knopf.aktiv {
+  color: #ffffff;
+  background: var(--farbe-primaer);
+  border-color: var(--farbe-primaer);
+}
+
+.kategorie-anzahl {
+  font-weight: 700;
+}

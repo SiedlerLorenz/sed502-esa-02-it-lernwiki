@@ -50,3 +50,11 @@ export function sortiereNachTitel(artikel: Artikel[]): Artikel[] {
     a.titel.localeCompare(b.titel, 'de', { sensitivity: 'base' }),
   );
 }
+
+// Liefert nur die Artikel einer Kategorie; bei null alle Artikel
+export function filtereNachKategorie(artikel: Artikel[], kategorie: Kategorie | null): Artikel[] {
+  if (kategorie === null) {
+    return artikel;
+  }
+  return artikel.filter((eintrag: Artikel) => eintrag.kategorie === kategorie);
+}
