@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import useWikipedia from '../hooks/useWikipedia.ts';
+import KiTutor from '../komponenten/KiTutor.tsx';
 import WikipediaInfo from '../komponenten/WikipediaInfo.tsx';
 import { artikelListe } from '../daten/artikel.ts';
 
@@ -49,6 +50,13 @@ function ArtikelDetail(): React.JSX.Element {
 
       {/* Zusatzinformationen aus der Wikipedia-REST-API */}
       <WikipediaInfo wikipedia={wikipedia} />
+
+      {/* key: Beim Wechsel zu einem anderen Artikel startet der Tutor ohne alte Antwort */}
+      <KiTutor
+        key={artikel.id}
+        artikel={artikel}
+        wikipediaText={wikipedia.daten?.extract ?? null}
+      />
     </div>
   );
 }

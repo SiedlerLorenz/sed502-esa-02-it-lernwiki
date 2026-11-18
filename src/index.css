@@ -525,3 +525,55 @@ select[aria-invalid='true'] {
   font-weight: 700;
   color: var(--farbe-primaer);
 }
+
+/* ---------- KI-Tutor ---------- */
+
+.tutor-niveaus {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+/* Zweispaltig ab mittlerer Breite */
+@media (min-width: 40rem) {
+  .tutor-niveaus {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tutor-niveaus legend {
+    grid-column: 1 / -1;
+  }
+}
+
+.tutor-niveaus legend {
+  padding: 0 0.25rem;
+  font-weight: 700;
+}
+
+.tutor-niveau {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.tutor-niveau input {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.25rem;
+}
+
+.tutor-niveau label {
+  margin: 0;
+  font-weight: 400;
+}
+
+.tutor-niveau-beschreibung {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--farbe-text-gedaempft);
+}
