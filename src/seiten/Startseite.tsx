@@ -3,7 +3,7 @@ import ArtikelKarte from '../komponenten/ArtikelKarte.tsx';
 import KategorienListe from '../komponenten/KategorienListe.tsx';
 import Suchfeld from '../komponenten/Suchfeld.tsx';
 import { artikelListe } from '../daten/artikel.ts';
-import { filtereArtikel, zaehleKategorien } from '../utils/suche.ts';
+import { filtereArtikel, sortiereNachTitel, zaehleKategorien } from '../utils/suche.ts';
 
 // Formuliert die Statusmeldung für Screenreader und Sehende
 function erstelleStatusText(treffer: number, gesamt: number): string {
@@ -13,7 +13,8 @@ function erstelleStatusText(treffer: number, gesamt: number): string {
   return `${treffer} von ${gesamt} Artikeln gefunden.`;
 }
 
-// Die Kategorien ändern sich nie, deshalb einmalig außerhalb der Komponente zählen
+// Die Artikel ändern sich nie, deshalb einmalig außerhalb der Komponente sortieren und zählen
+const sortierteArtikel = sortiereNachTitel(artikelListe);
 const kategorienAnzahlen = zaehleKategorien(artikelListe);
 
 // Startseite: Live-Suche über alle Wiki-Artikel und Übersicht der Kategorien
@@ -21,7 +22,7 @@ function Startseite(): React.JSX.Element {
   const [suchbegriff, setSuchbegriff] = useState<string>('');
 
   // Die Trefferliste wird bei jedem Rendern aus dem Suchbegriff berechnet (kein eigener State nötig)
-  const treffer = filtereArtikel(artikelListe, suchbegriff);
+  const treffer = filtereArtikel(sortierteArtikel, suchbegriff);
 
   return (
     <div className="startseite">
