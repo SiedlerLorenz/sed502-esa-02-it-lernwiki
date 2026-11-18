@@ -373,3 +373,155 @@ input[aria-invalid='true'] {
 .scroll-ziel {
   scroll-margin-top: 1rem;
 }
+
+/* ---------- KI-Antworten ---------- */
+
+.ki-antwort {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f3f0ff;
+  border: 1px solid #c4b5fd;
+  border-radius: var(--radius);
+}
+
+/* Kennzeichnung als KI-Inhalt */
+.ki-kennzeichnung {
+  display: inline-block;
+  margin: 0 0 0.75rem;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4c1d95;
+  background: #ede9fe;
+  border-radius: 999px;
+}
+
+/* Zeilenumbrüche der KI beibehalten */
+.ki-text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Blinkender Cursor, solange die KI schreibt */
+.ki-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: blinken 1s steps(1) infinite;
+}
+
+@keyframes blinken {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ki-cursor {
+    animation: none;
+  }
+}
+
+.ki-hinweis {
+  margin: 0.75rem 0 0;
+  font-style: italic;
+  color: var(--farbe-text-gedaempft);
+}
+
+.ki-aktionen {
+  margin: 0.75rem 0 0;
+}
+
+.ki-aktionen:empty {
+  display: none;
+}
+
+/* ---------- Quiz ---------- */
+
+select {
+  flex: 1 1 14rem;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  color: var(--farbe-text);
+  background: #ffffff;
+  border: 2px solid var(--farbe-text-gedaempft);
+  border-radius: var(--radius);
+}
+
+select[aria-invalid='true'] {
+  border-color: #b91c1c;
+}
+
+.quiz-frage {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--farbe-rand);
+  border-radius: var(--radius);
+}
+
+.quiz-frage legend {
+  padding: 0 0.25rem;
+  font-weight: 700;
+  color: var(--farbe-primaer);
+}
+
+.quiz-frage ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quiz-frage li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+/* Größere Checkboxen, leichter zu treffen */
+.quiz-frage input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.25rem;
+}
+
+/* Beschriftung neben der Checkbox: normal statt fett wie andere Labels */
+.quiz-frage label {
+  display: inline;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Auswertung: Kennzeichnung mit Farbe und Text (nicht nur über Farbe) */
+.quiz-frage li.antwort-richtig label {
+  color: #166534;
+}
+
+.quiz-frage li.antwort-vergessen label {
+  color: #92400e;
+}
+
+.quiz-frage li.antwort-falsch label {
+  color: #b91c1c;
+}
+
+.antwort-bewertung {
+  font-size: 0.875rem;
+}
+
+.frage-punkte {
+  margin: 0.75rem 0 0;
+  font-weight: 600;
+}
+
+.quiz-ergebnis {
+  margin: 1.25rem 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--farbe-primaer);
+}

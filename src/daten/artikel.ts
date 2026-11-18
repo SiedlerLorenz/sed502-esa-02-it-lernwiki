@@ -498,4 +498,63 @@ setSuchParameter({ q: 'docker' });   // Adresse wird zu /recherche?q=docker`,
 // sicher: nur der reine Text wird angezeigt
 <p>{entferneHtml(treffer.excerpt)}</p>`,
   },
+  {
+    id: 40,
+    titel: 'TypeScript: unknown und Type Guards',
+    kategorie: 'Programmiersprachen',
+    wikipediaTitel: 'Typsicherheit',
+    zusammenfassung:
+      'Daten von außen, etwa aus JSON.parse, haben keinen bekannten Typ. Mit unknown statt any muss man sie erst prüfen, bevor man sie verwendet. Ein Type Guard ist eine Prüffunktion mit Rückgabetyp "wert is Typ", nach der TypeScript den Typ kennt.',
+    stichwoerter: ['unknown', 'any', 'Type Guard', 'Type Narrowing', 'Laufzeitprüfung'],
+    beispiel: `function istText(wert: unknown): wert is string {
+  return typeof wert === 'string';
+}
+
+const daten: unknown = JSON.parse('"Hallo"');
+if (istText(daten)) {
+  console.log(daten.toUpperCase());   // hier ist daten ein string
+}`,
+  },
+  {
+    id: 41,
+    titel: 'KI: Strukturierte Ausgabe als JSON',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Datenvalidierung',
+    zusammenfassung:
+      'Soll ein Programm die Antwort einer KI weiterverarbeiten, lässt man sie JSON statt freiem Text liefern. Bei Gemini erzwingt das responseMimeType. Weil sich ein Modell nicht immer an Vorgaben hält, wird das Ergebnis trotzdem geprüft.',
+    stichwoerter: ['JSON', 'responseMimeType', 'Validierung', 'Quiz', 'Type Guard'],
+    beispiel: `generationConfig: { responseMimeType: 'application/json' }
+
+const fragen = leseQuizFragen(antwort);   // parst und prüft jede Frage
+// ungültige Fragen werden aussortiert, bei keiner gültigen gibt es einen Fehler`,
+  },
+  {
+    id: 42,
+    titel: 'KI: Thinking-Level',
+    kategorie: 'Künstliche Intelligenz',
+    wikipediaTitel: 'Gemini_(Sprachmodell)',
+    zusammenfassung:
+      'Neuere Sprachmodelle "denken" vor der Antwort intern nach. Das verbessert schwierige Antworten, kostet aber Zeit. Über das Thinking-Level lässt sich steuern, wie viel nachgedacht wird; im Quiz sank die Wartezeit so von rund 2,5 Minuten auf wenige Sekunden.',
+    stichwoerter: ['Thinking', 'thinkingLevel', 'Wartezeit', 'Gemini', 'Reasoning'],
+    beispiel: `generationConfig: {
+  thinkingConfig: { thinkingLevel: 'low' }   // minimal, low, medium oder high
+}`,
+  },
+  {
+    id: 43,
+    titel: 'React: children',
+    kategorie: 'React',
+    wikipediaTitel: 'Komposition_an_Stelle_von_Vererbung',
+    zusammenfassung:
+      'Alles, was zwischen dem öffnenden und schließenden Tag einer Komponente steht, erhält sie als Prop children. So kann eine Komponente fremden Inhalt einbetten, ohne ihn zu kennen, zum Beispiel eine Karte mit beliebigem Text darin.',
+    stichwoerter: ['children', 'ReactNode', 'Komposition', 'Props', 'Komponente'],
+    beispiel: `interface KarteProps {
+  titel: string;
+  children: React.ReactNode;
+}
+
+<Karte titel="Hinweis">
+  <p>Dieser Absatz wird als children übergeben.</p>
+</Karte>`,
+  },
 ];

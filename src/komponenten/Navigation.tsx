@@ -21,6 +21,11 @@ function Navigation(): React.JSX.Element {
             Recherche
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/quiz" className={linkKlasse}>
+            Quiz
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

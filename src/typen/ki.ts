@@ -20,6 +20,9 @@ export interface GeminiEinstellungen {
   temperature?: number; // 0 = sachlich und gleichbleibend, höher = kreativer
   maxOutputTokens?: number; // Obergrenze für die Länge der Antwort
   responseMimeType?: 'text/plain' | 'application/json'; // JSON erzwingt eine strukturierte Antwort
+  thinkingConfig?: {
+    thinkingLevel: 'minimal' | 'low' | 'medium' | 'high'; // wie lange das Modell vor der Antwort "nachdenkt"
+  };
 }
 
 // Anfrage an /api/ki (wird vom Vite-Proxy an Gemini weitergeleitet)
