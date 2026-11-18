@@ -450,7 +450,7 @@ controllerRef.current?.abort();                  // laufende Anfrage stoppen`,
     zusammenfassung:
       'In React steht der Inhalt eines Eingabefelds im State (kontrolliertes Formular). Beim Absenden wird die Eingabe geprüft; ist sie ungültig, erscheint eine Fehlermeldung und die Aktion wird nicht ausgeführt.',
     stichwoerter: ['Formular', 'Validierung', 'onSubmit', 'preventDefault', 'Fehlermeldung'],
-    beispiel: `const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    beispiel: `const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>): void => {
   event.preventDefault();               // Seite nicht neu laden
   const meldung = pruefeSuchbegriff(eingabe);
   setFehler(meldung);

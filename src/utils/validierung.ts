@@ -16,3 +16,22 @@ export function pruefeSuchbegriff(eingabe: string): string | null {
   }
   return null;
 }
+
+export const TUTOR_FRAGE_MIN = 5;
+export const TUTOR_FRAGE_MAX = 300;
+
+// Prüft eine eigene Frage an den KI-Tutor und liefert eine Fehlermeldung oder null
+export function pruefeTutorFrage(eingabe: string): string | null {
+  const text = eingabe.trim();
+
+  if (text === '') {
+    return 'Bitte eine Frage eingeben.';
+  }
+  if (text.length < TUTOR_FRAGE_MIN) {
+    return `Die Frage muss mindestens ${TUTOR_FRAGE_MIN} Zeichen lang sein.`;
+  }
+  if (text.length > TUTOR_FRAGE_MAX) {
+    return `Die Frage darf höchstens ${TUTOR_FRAGE_MAX} Zeichen lang sein.`;
+  }
+  return null;
+}

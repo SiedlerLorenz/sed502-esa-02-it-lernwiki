@@ -577,3 +577,42 @@ select[aria-invalid='true'] {
   font-size: 0.875rem;
   color: var(--farbe-text-gedaempft);
 }
+
+/* Eigene Frage an den Tutor */
+.tutor-frage {
+  margin-top: 1.25rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--farbe-text);
+  background: #ffffff;
+  border: 2px solid var(--farbe-text-gedaempft);
+  border-radius: var(--radius);
+  resize: vertical;
+}
+
+textarea:focus-visible {
+  outline: 3px solid var(--farbe-fokus);
+  outline-offset: 2px;
+}
+
+textarea[aria-invalid='true'] {
+  border-color: #b91c1c;
+}
+
+.zeichenzaehler {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  text-align: right;
+  color: var(--farbe-text-gedaempft);
+}
+
+/* Überschrift über der Antwort: welche Erklärung oder Frage beantwortet wird */
+.tutor-anfrage {
+  margin: 1.25rem 0 0;
+  font-weight: 700;
+  color: var(--farbe-primaer);
+}
