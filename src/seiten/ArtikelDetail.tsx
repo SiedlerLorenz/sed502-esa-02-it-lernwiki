@@ -38,6 +38,9 @@ function ArtikelDetail(): React.JSX.Element {
         )}
 
         <p className="artikel-stichwoerter">Stichwörter: {artikel.stichwoerter.join(', ')}</p>
+        <p>
+          <Link to={`/quiz?artikel=${artikel.id}`}>Wissen testen: Quiz zu diesem Artikel</Link>
+        </p>
       </article>
 
       {/* Zusatzinformationen aus der Wikipedia-REST-API */}
