@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import useWikipedia from '../hooks/useWikipedia.ts';
 import WikipediaInfo from '../komponenten/WikipediaInfo.tsx';
 import { artikelListe } from '../daten/artikel.ts';
 
@@ -7,6 +8,9 @@ function ArtikelDetail(): React.JSX.Element {
   // useParams liest den variablen Teil der URL, z. B. "3" aus /artikel/3
   const { id } = useParams<{ id: string }>();
   const artikel = artikelListe.find((eintrag) => eintrag.id === Number(id));
+
+  // Hooks immer vor einem frühen return aufrufen; ohne Artikel wird nichts geladen
+  const wikipedia = useWikipedia(artikel?.wikipediaTitel ?? null);
 
   // Unbekannte oder ungültige ID (z. B. /artikel/999 oder /artikel/abc)
   if (artikel === undefined) {
@@ -44,7 +48,7 @@ function ArtikelDetail(): React.JSX.Element {
       </article>
 
       {/* Zusatzinformationen aus der Wikipedia-REST-API */}
-      <WikipediaInfo titel={artikel.wikipediaTitel} />
+      <WikipediaInfo wikipedia={wikipedia} />
     </div>
   );
 }
