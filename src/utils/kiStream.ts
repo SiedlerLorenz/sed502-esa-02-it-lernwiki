@@ -46,7 +46,9 @@ export async function streameKiAntwort(
   }
 
   if (!antwort.ok) {
-    throw new Error(erstelleKiFehlertext(antwort.status));
+    // Fehlertext von Gemini mitlesen, um z. B. Minuten- und Tageslimit zu unterscheiden
+    const details = await antwort.text().catch(() => '');
+    throw new Error(erstelleKiFehlertext(antwort.status, details));
   }
 
   const leser = antwort.body?.getReader();
