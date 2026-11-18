@@ -557,4 +557,31 @@ const fragen = leseQuizFragen(antwort);   // parst und prüft jede Frage
   <p>Dieser Absatz wird als children übergeben.</p>
 </Karte>`,
   },
+  {
+    id: 48,
+    titel: 'JavaScript: Sortieren mit sort und localeCompare',
+    kategorie: 'Programmiersprachen',
+    wikipediaTitel: 'Sortierverfahren',
+    zusammenfassung:
+      'Array.sort ordnet ein Array mithilfe einer Vergleichsfunktion. Für Texte liefert localeCompare die richtige Reihenfolge einer Sprache, etwa mit Umlauten. Weil sort das ursprüngliche Array verändert, sortiert man in React eine Kopie.',
+    stichwoerter: ['sort', 'localeCompare', 'Sortierung', 'Kopie', 'Immutabilität'],
+    beispiel: `const sortiert = [...artikel].sort((a, b) =>
+  a.titel.localeCompare(b.titel, 'de', { sensitivity: 'base' }),
+);
+// [...artikel]: Kopie, damit die ursprüngliche Liste unverändert bleibt`,
+  },
+  {
+    id: 49,
+    titel: 'React: Abgeleitete Werte statt zusätzlichem State',
+    kategorie: 'React',
+    wikipediaTitel: 'Single_Point_of_Truth',
+    zusammenfassung:
+      'Was sich aus vorhandenem State berechnen lässt, wird nicht zusätzlich gespeichert, sondern bei jedem Rendern neu berechnet. So gibt es nur eine Quelle der Wahrheit, und die Anzeige kann nicht mit veralteten Daten auseinanderlaufen.',
+    stichwoerter: ['abgeleiteter Wert', 'State', 'Rendern', 'Single Source of Truth', 'Filter'],
+    beispiel: `const [suchbegriff, setSuchbegriff] = useState('');
+const [aktiveKategorie, setAktiveKategorie] = useState<Kategorie | null>(null);
+
+// abgeleitet, kein eigener State:
+const treffer = filtereArtikel(filtereNachKategorie(artikel, aktiveKategorie), suchbegriff);`,
+  },
 ];
