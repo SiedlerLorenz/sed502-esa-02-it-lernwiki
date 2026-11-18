@@ -42,3 +42,19 @@ export function zaehleKategorien(artikel: Artikel[]): Record<Kategorie, number> 
     return zaehler;
   }, anfangswert);
 }
+
+// Liefert die Artikel alphabetisch nach Titel sortiert (deutsche Sortierregeln, z. B. Umlaute).
+// sort() verändert das Array, auf dem es aufgerufen wird; deshalb wird zuerst eine Kopie erstellt.
+export function sortiereNachTitel(artikel: Artikel[]): Artikel[] {
+  return [...artikel].sort((a: Artikel, b: Artikel) =>
+    a.titel.localeCompare(b.titel, 'de', { sensitivity: 'base' }),
+  );
+}
+
+// Liefert nur die Artikel einer Kategorie; bei null alle Artikel
+export function filtereNachKategorie(artikel: Artikel[], kategorie: Kategorie | null): Artikel[] {
+  if (kategorie === null) {
+    return artikel;
+  }
+  return artikel.filter((eintrag: Artikel) => eintrag.kategorie === kategorie);
+}
