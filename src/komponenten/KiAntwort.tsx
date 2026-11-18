@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FehlerMeldung from './FehlerMeldung.tsx';
 import Ladeanimation from './Ladeanimation.tsx';
 
@@ -24,6 +24,15 @@ function KiAntwort({
 }: KiAntwortProps): React.JSX.Element | null {
   const [isKopiert, setIsKopiert] = useState<boolean>(false);
 
+  // "Kopiert ✓" nach 2 Sekunden zurücksetzen; der Timer wird beim Verlassen der Seite aufgeräumt
+  useEffect(() => {
+    if (!isKopiert) {
+      return;
+    }
+    const timer = setTimeout(() => setIsKopiert(false), 2000);
+    return () => clearTimeout(timer);
+  }, [isKopiert]);
+
   // Noch nichts angefragt: nichts anzeigen
   if (antwort === '' && !isStreaming && fehler === null && hinweis === null) {
     return null;
@@ -33,7 +42,6 @@ function KiAntwort({
     try {
       await navigator.clipboard.writeText(antwort);
       setIsKopiert(true);
-      setTimeout(() => setIsKopiert(false), 2000);
     } catch {
       setIsKopiert(false); // Zwischenablage nicht verfügbar (z. B. fehlende Berechtigung)
     }

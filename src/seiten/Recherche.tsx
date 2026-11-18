@@ -8,8 +8,8 @@ import RechercheFormular from '../komponenten/RechercheFormular.tsx';
 import SuchTreffer from '../komponenten/SuchTreffer.tsx';
 import WikipediaInfo from '../komponenten/WikipediaInfo.tsx';
 import type { WikipediaSuchantwort } from '../typen/wikipedia.ts';
+import { WIKIPEDIA_ANFRAGE, WIKIPEDIA_SUCHE } from '../utils/wikipedia.ts';
 
-const SUCH_API = 'https://de.wikipedia.org/w/rest.php/v1/search/page';
 const MAX_TREFFER = 10;
 
 // Recherche-Seite: freie Suche in der deutschen Wikipedia, erreichbar unter /recherche?q=…
@@ -38,8 +38,8 @@ function Recherche(): React.JSX.Element {
   const url =
     suchbegriff === ''
       ? null
-      : `${SUCH_API}?q=${encodeURIComponent(suchbegriff)}&limit=${MAX_TREFFER}`;
-  const { daten, isLaden, fehler, neuLaden } = useFetch<WikipediaSuchantwort>(url);
+      : `${WIKIPEDIA_SUCHE}?q=${encodeURIComponent(suchbegriff)}&limit=${MAX_TREFFER}`;
+  const { daten, isLaden, fehler, neuLaden } = useFetch<WikipediaSuchantwort>(url, WIKIPEDIA_ANFRAGE);
 
   // Neue Suche: nur der Suchbegriff, eine alte Auswahl fällt weg
   const handleSuchen = (neuerBegriff: string): void => {

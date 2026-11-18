@@ -69,7 +69,7 @@ export function leseQuizFragen(text: string): QuizFrage[] {
  * System-Prompt für die Quiz-Erstellung
  * Rolle:     Ersteller von Lernquizfragen für das IT-Lernwiki
  * Aufgabe:   genau 5 Fragen mit je 5 Antworten zu einem Wiki-Artikel
- * Format:    ausschließlich JSON in der Form von QuizKiAntwort
+ * Format:    ausschließlich JSON in der Form { "fragen": QuizFrage[] }
  * Grenzen:   Artikel plus gesichertes Fachwissen, nichts erfinden, Anzahl richtiger Antworten 1 bis 5
  */
 export const QUIZ_SYSTEM_PROMPT = `Du erstellst Lernquizfragen für das IT-Lernwiki, ein Nachschlagewerk für IT-Einsteigerinnen und -Einsteiger.

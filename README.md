@@ -51,7 +51,13 @@ zählt 1 / (Anzahl richtiger Antworten), jede angekreuzte falsche Antwort zieht
 | [Google Gemini API](https://ai.google.dev/) `streamGenerateContent` | KI-Tutor, Quizfragen, Erklärungen, Antworten gestreamt (Server-Sent Events) | kostenloser API-Schlüssel |
 
 Alle drei Zustände eines API-Aufrufs (laden, Erfolg, Fehler) werden angezeigt; Fehler erscheinen als
-verständliche Meldung mit „Erneut versuchen“.
+verständliche Meldung mit „Erneut versuchen“. Anfragen an die Wikipedia geben sich mit dem Header
+`Api-User-Agent` als IT-Lernwiki zu erkennen, wie es die API-Regeln von Wikimedia vorsehen.
+
+**Streaming:** Die Antworten des KI-Tutors und die Erklärungen im Quiz erscheinen Wort für Wort,
+sobald sie eintreffen, und lassen sich abbrechen. Die Quizfragen selbst liefert die KI als JSON; sie
+werden erst angezeigt, wenn sie vollständig und geprüft sind, da unvollständiges JSON nicht lesbar
+ist. Bis dahin erscheint eine Ladeanzeige.
 
 ## Installation und Start
 
@@ -92,6 +98,10 @@ npm run preview  # gebauten Stand lokal ansehen (Proxy für die KI ist aktiv)
 npm run lint     # Code mit oxlint prüfen
 ```
 
+Hinweis: Der Proxy `/api/ki` läuft nur mit `npm run dev` und `npm run preview`. Wird ausschließlich
+der Ordner `dist/` auf einen Webserver gelegt, fehlt er und die KI-Funktionen antworten nicht. Für die
+Veröffentlichung (ESA 3) übernimmt eine Serverless Function diese Aufgabe unter derselben Adresse.
+
 ## Projektstruktur
 
 ```text
@@ -101,7 +111,7 @@ src/
   hooks/         Custom Hooks: useFetch, useWikipedia, useKI
   typen/         Interfaces und Union Types (artikel, wikipedia, ki, quiz, tutor)
   daten/         die Wiki-Artikel
-  utils/         Logik ohne Oberfläche: Suche, Validierung, fetchJSON, KI-Stream, Prompts, Quiz-Bewertung
+  utils/         Logik ohne Oberfläche: Suche, Validierung, fetchJSON, Wikipedia-Adressen, KI-Stream, Prompts, Quiz-Bewertung
   App.tsx        Seitenlayout und Routen
   main.tsx       Einstiegspunkt mit BrowserRouter
 vite.config.ts   Proxy /api/ki zur Gemini-API
