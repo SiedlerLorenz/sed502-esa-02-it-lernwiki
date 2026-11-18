@@ -1,15 +1,14 @@
 # IT-Lernwiki
 
-Einsendeaufgabe 2 im Fach Front-End Development (SED502), Gruppenarbeit.
+Einsendeaufgabe 2 - Front-End Development (SED502), Gruppenarbeit.
 Gruppe: **Lorenz Siedler** und **Phillip Münsch**
 
 ## Projektbeschreibung
 
 Das IT-Lernwiki ist ein Nachschlagewerk für IT-Einsteigerinnen und -Einsteiger, zum Beispiel
-Studierende in den ersten Semestern. Es erklärt Grundbegriffe aus Programmiersprachen, Linux, Git,
-Netzwerk, Webentwicklung, React und künstlicher Intelligenz in kurzen Artikeln mit Codebeispielen.
+Studierende in den ersten Semestern oder Hobby-Programmierer. Es erklärt Grundbegriffe aus Programmiersprachen, Linux, Git, Netzwerk, Webentwicklung, React und künstlicher Intelligenz in kurzen Artikeln mit Codebeispielen.
 
-Aus dem statischen IT-Wiki der ESA 1 wurde eine React-Anwendung, die das eigene Wiki mit der
+Aus dem statischen IT-Wiki der ESA 1 wurde eine React-Anwendung, die das eigene Wiki mit 
 Wikipedia und einer KI verbindet: Zu jedem Artikel werden passende Wikipedia-Informationen geladen,
 ein KI-Tutor erklärt den Stoff auf verschiedenen Niveaus und ein KI-Quiz prüft das Gelernte.
 
@@ -107,3 +106,56 @@ src/
   main.tsx       Einstiegspunkt mit BrowserRouter
 vite.config.ts   Proxy /api/ki zur Gemini-API
 ```
+
+## Aufgabenverteilung
+
+Die Arbeit wurde in Pakete geteilt. Jedes Paket entstand auf einem eigenen Feature-Branch und wurde
+anschließend mit einem Merge-Commit in `main` übernommen, sodass im Git-Verlauf sichtbar bleibt, wer
+woran gearbeitet hat. Idee, Funktionsumfang und Konventionen haben wir gemeinsam festgelegt.
+
+| Paket | Branch | Inhalt | Person | Datum |
+|---|---|---|---|---|
+| 1 | `feature/projekt-setup` | Vite-Vorlage react-ts, strict-Modus, React Router, `.env.example` | Lorenz | 12.11. |
+| 2 | `feature/datenmodell-startseite` | Datenmodell und Suche aus ESA 1 übernommen, Navigation, Layout, Startseite, 404-Seite | Lorenz | 13.11. |
+| 3 | `feature/use-fetch-wikipedia` | Wikipedia-Typen, `fetchJSON`, Custom Hook `useFetch`, Ladeanimation, Fehlermeldung, Artikel zur Webentwicklung | Phillip | 14.11. |
+| 4 | `feature/artikel-detail` | Detailseite `/artikel/:id` mit Wikipedia-Zusammenfassung, Artikel zu React | Phillip | 15.11. |
+| 5 | `feature/ki-anbindung` | Vite-Proxy für Gemini, Streaming (`kiStream`), Custom Hook `useKI`, KI-Fehlermeldungen, Artikel zu KI und Tooling | Lorenz | 16.–17.11. |
+| 7 | `feature/recherche` | Recherche-Seite mit validiertem Formular, Wikipedia-Volltextsuche, Auswahl eines Treffers | Phillip | 17.11. |
+| 8 | `feature/ki-quiz` | KI-Quiz mit JSON-Ausgabe und Type Guards, Komponente `KiAntwort`, Auswertung mit Teilpunkten, KI-Erklärungen | Phillip | 18.11. |
+| – | `feature/startseite-filter` | Alphabetische Sortierung und Kategorie-Filter auf der Startseite | Phillip | 18.11. |
+| 6 | `feature/ki-tutor` | Hook `useWikipedia`, KI-Tutor mit vier Niveaus und eigenen Fragen, Meldung bei Tageslimit, `SubmitEvent` | Lorenz | 18.11. |
+| 9 | `docs/readme` | Dokumentation | Lorenz | 18.11. |
+
+Zusammenarbeit im Code: Lorenz' KI-Tutor verwendet Phillips Komponenten `KiAntwort` und
+`WikipediaInfo`, Phillips Quiz baut auf Lorenz' Hook `useKI` auf. Am 17. und 18.11. liefen Branches
+beider Personen parallel; die dabei entstandenen Merge-Konflikte in `daten/artikel.ts` und
+`index.css` wurden gelöst, indem die Inhalte beider Branches übernommen wurden.
+
+## KI-Einsatz
+
+### KI in der Anwendung
+
+| | |
+|---|---|
+| Anbieter und Modell | Google Gemini über die Gemini API, Standardmodell `gemini-3.5-flash`, umstellbar über `GEMINI_MODELL` (getestet auch mit `gemini-3.5-flash-lite`) |
+| Funktionen | KI-Tutor (Erklärung nach Niveau, eigene Fragen), Erstellung der Quizfragen, Erklärungen zu falsch beantworteten Quizfragen |
+| Gesendete Daten | Titel, Text, Stichwörter und Beispiel des Wiki-Artikels, die Wikipedia-Einleitung, das gewählte Niveau, die eigene Frage sowie bei Quiz-Erklärungen die Frage mit den angekreuzten Antworten. Es gibt kein Login; personenbezogene Daten werden nicht erhoben. |
+| Umgang mit Eingaben | Im kostenlosen Tarif kann Google die Eingaben laut den Nutzungsbedingungen zur Verbesserung seiner Dienste verwenden. In das Fragefeld des Tutors sollten deshalb keine persönlichen Daten eingegeben werden. Die App selbst speichert keine Eingaben. |
+| Prompts | dokumentiert im Code: `utils/tutor.ts` (Tutor), `utils/quiz.ts` (Quiz und Erklärungen) |
+
+Umgesetzte Maßnahmen:
+
+- **Schlüssel geschützt:** Der API-Schlüssel bleibt im Vite-Proxy und gelangt nicht in den Browser-Code.
+- **Kennzeichnung:** Alle KI-Antworten tragen den Hinweis „KI-generierter Inhalt · kann Fehler enthalten“.
+- **Weniger Halluzinationen:** Die KI bekommt Wiki-Artikel und Wikipedia-Text als Grundlage und die Anweisung, nichts zu erfinden.
+- **Grenzen im System-Prompt:** nur IT-Fragen, keine Befolgung von Anweisungen, die die Regeln ändern sollen (Schutz vor Prompt-Injection).
+- **Prüfung der Antworten:** Quizfragen kommen als JSON und werden mit Type Guards geprüft, ungültige Fragen werden aussortiert.
+- **Bedienung:** Streaming mit Abbrechen, Eingaben mit Längenbegrenzung, verständliche Meldungen bei Überlastung (503) und Kontingent (429, Minuten- und Tageslimit).
+
+### KI-Werkzeuge in der Entwicklung
+
+| Person | Werkzeug | Wofür | Ergebnis |
+|---|---|---|---|
+| Lorenz | GitHub Copilot | Code-Vervollständigung im Editor | schnelleres Schreiben wiederkehrender Codeteile |
+| Lorenz | Claude Opus 5.5 (Anthropic) | Hilfestellung bei Code, Strukturierung des Projekts und der Arbeitspakete, Problemstellungen, Erklärungen und Fehlersuche; Hilfestellung, Strukturierung und sprachliche Überarbeitung der README | Durch Nachhaken, Nachfragen und Verständnisfragen wurden Probleme schneller gelöst und Sicherheitslücken nicht übersehen. |
+| Phillip | GitHub Copilot | Code-Vervollständigung sowie Hilfestellung bei Code, Strukturierung, Problemstellungen, Erklärungen und Fehlersuche | schnelleres Coden; schnelleres Bugfixing |
