@@ -10,8 +10,9 @@ export interface UseFetchErgebnis<T> {
 }
 
 // Wiederverwendbarer Hook zum Laden von JSON-Daten
-// Ist die URL null, wird nichts geladen (z. B. solange noch kein Suchbegriff eingegeben wurde)
-function useFetch<T>(url: string | null): UseFetchErgebnis<T> {
+// Ist die URL null, wird nichts geladen (z. B. solange noch kein Suchbegriff eingegeben wurde).
+// optionen: zusätzliche Einstellungen für fetch, z. B. Header; sollte ein stabiles Objekt sein
+function useFetch<T>(url: string | null, optionen?: RequestInit): UseFetchErgebnis<T> {
   const [daten, setDaten] = useState<T | null>(null);
   const [isLaden, setIsLaden] = useState<boolean>(url !== null);
   const [fehler, setFehler] = useState<string | null>(null);
@@ -33,7 +34,7 @@ function useFetch<T>(url: string | null): UseFetchErgebnis<T> {
       setFehler(null);
 
       try {
-        const ergebnis = await fetchJSON<T>(url);
+        const ergebnis = await fetchJSON<T>(url, optionen);
         if (!abgebrochen) {
           setDaten(ergebnis);
         }
@@ -55,7 +56,7 @@ function useFetch<T>(url: string | null): UseFetchErgebnis<T> {
     return () => {
       abgebrochen = true;
     };
-  }, [url, versuch]);
+  }, [url, optionen, versuch]);
 
   const neuLaden = (): void => {
     setVersuch((bisher) => bisher + 1);
