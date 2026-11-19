@@ -71,7 +71,7 @@ npm install
 
 ### API-Schlüssel für Gemini einrichten
 
-1. Kostenlosen Schlüssel erstellen: <https://aistudio.google.com/apikey> (Google-Konto, keine Kreditkarte nötig).
+1. Kostenlosen Schlüssel erstellen: <https://aistudio.google.com/apikey>.
 2. Die Datei `.env.example` nach `.env` kopieren und den Schlüssel eintragen:
 
 ```bash
